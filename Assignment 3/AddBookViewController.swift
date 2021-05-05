@@ -10,10 +10,15 @@ import Firebase
 import FirebaseFirestore
 import UniformTypeIdentifiers
 class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
-    
+    var credentials: String?
+    var selectedURL: URL?
+    let storage = Storage.storage()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameTextView: UITextView!
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        
+        selectedURL = urls.first
+        
     }
     
     public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
@@ -25,6 +30,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.pdf])
         documentPicker.delegate = self
            documentPicker.allowsMultipleSelection = false
+        
            documentPicker.modalPresentationStyle = .fullScreen
            present(documentPicker, animated: true, completion: nil)
     }
@@ -36,14 +42,56 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         // Do any additional setup after loading the view.
     }
     
     func addData(_ bookName: String, _ bookInformation: String) {
-        let booksRef = database.collection("books")
-        let newBook = ["Name": bookName, "Information": bookInformation]
-        booksRef.document(bookName).setData(newBook)    }
+        let userRef = database.collection("myCollection")
+    
+        guard let credentials = credentials else {
+            print("Credentials not set")
+            return
+        }
+        if let selectedURL = selectedURL {
+            let tempDirPaths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
+            let tempDir = tempDirPaths[0]
+            let localURL = tempDir.appendingPathComponent(selectedURL.lastPathComponent)
+            
+            selectedURL.startAccessingSecurityScopedResource()
+            try? FileManager.default.copyItem(at: selectedURL, to: localURL)
+            self.selectedURL?.stopAccessingSecurityScopedResource()
+//            let fileURL = URL(fileURLWithPath: //selectedURL!.path)
+      //      print(FileManager.default.fileExists(atPath: selectedURL!.path))
+            let storageRef = storage.reference(withPath: "/books/\(selectedURL.lastPathComponent)")
+
+            storageRef.putFile(from: localURL, metadata: nil) { metadata, error in
+                if let error = error{
+                    print(error)
+                }
+                else
+                {
+                    storageRef.downloadURL { url, error in
+                        if let error = error {
+                            print("Could not get downloadable link \(error)")
+                        }
+                        else{
+                            let downloadURL = url?.absoluteString
+                            let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL]
+                            userRef.document(credentials).collection("Books").document(bookName).setData(newBook)
+                        }
+                    }
+                    
+                    
+                    print("Successfully Uploaded")
+                }
+            }
+
+        }
+        
+        
+    }
     
     /*
     // MARK: - Navigation

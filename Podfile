@@ -12,6 +12,8 @@ target 'Assignment 3' do
   # https://firebase.google.com/docs/ios/setup#available-pods
   pod 'Firebase/Core' 
   pod 'Firebase/Auth'
+  pod 'Firebase'
   pod 'Firebase/Firestore'
- 
+  pod 'Firebase/Storage'
+  pod 'FBSDKLoginKit'
 end

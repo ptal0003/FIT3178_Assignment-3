@@ -10,8 +10,10 @@ import Foundation
 class Book: NSObject, Encodable{
     var name: String
     var information: String
-    init(_ bookName: String, _ information: String) {
+    var url: String
+    init(_ bookName: String, _ information: String, url: String) {
         self.information = information
         self.name  = bookName
+        self.url = url
     }
 }

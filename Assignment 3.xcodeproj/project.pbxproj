@@ -20,6 +20,8 @@
 		0D0FC2E226356943002BECC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D0FC2E026356943002BECC3 /* LaunchScreen.storyboard */; };
 		0D0FC2ED26356943002BECC3 /* Assignment_3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FC2EC26356943002BECC3 /* Assignment_3Tests.swift */; };
 		0D0FC2F826356943002BECC3 /* Assignment_3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FC2F726356943002BECC3 /* Assignment_3UITests.swift */; };
+		0D320718263FF368005A29EB /* ManageBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */; };
+		0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3C8251263B276B007CB332 /* LoginViewController.swift */; };
 		0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */; };
 		44B05C4F679552CDB3396A0C /* Pods_Assignment_3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C86E81DFE4DF15C8CBA413F /* Pods_Assignment_3.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +62,8 @@
 		0D0FC2F326356943002BECC3 /* Assignment 3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Assignment 3UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D0FC2F726356943002BECC3 /* Assignment_3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment_3UITests.swift; sourceTree = "<group>"; };
 		0D0FC2F926356943002BECC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBooksTableViewController.swift; sourceTree = "<group>"; };
+		0D3C8251263B276B007CB332 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0D5748E926384BB400BA0200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Assignment 3/Info.plist"; sourceTree = "<group>"; };
 		0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
 		2C86E81DFE4DF15C8CBA413F /* Pods_Assignment_3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Assignment_3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,8 +130,10 @@
 				0D0FC2D426356941002BECC3 /* SceneDelegate.swift */,
 				0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */,
 				0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */,
+				0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */,
 				0D0FC2D626356941002BECC3 /* ViewController.swift */,
 				0D07D7382636C82C0010AB82 /* PDFAdderViewController.swift */,
+				0D3C8251263B276B007CB332 /* LoginViewController.swift */,
 				0D0FC2D826356941002BECC3 /* Main.storyboard */,
 				0D0FC2DE26356943002BECC3 /* Assets.xcassets */,
 				0D0FC2E026356943002BECC3 /* LaunchScreen.storyboard */,
@@ -345,6 +351,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */,
+				0D320718263FF368005A29EB /* ManageBooksTableViewController.swift in Sources */,
 				0D07D722263585CB0010AB82 /* Book.swift in Sources */,
 				0D07D7392636C82C0010AB82 /* PDFAdderViewController.swift in Sources */,
 				0D07D72C263586C10010AB82 /* AddBookViewController.swift in Sources */,
