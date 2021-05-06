@@ -7,40 +7,44 @@
 
 import UIKit
 import FirebaseFirestore
+
+struct ShowData: Codable{
+    var name: String
+    var URL: String
+    var information: String
+}
 class ManageBooksTableViewController: UITableViewController {
+    @IBOutlet var myTableView: UITableView!
     var credentials: String?
-    lazy var database = {
+    var database = {
         return Firestore.firestore()
     }()
+    var allBooks: [Book] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         if let credentials = credentials{
             print(credentials)
-            let userRef = database.collection("myCollection")
-            userRef.document(credentials).getDocument { snapshot, error in
+            database.collection("myCollection/\(credentials)/Books").getDocuments { snapshot, error in
                 if let error = error{
                     print(error)
                 }
-                else
-                {
-                    print(snapshot?.data())
+                else{
+                    for document in snapshot!.documents
+                    {
+                            let data = document.data()
+                            let name = data["Name"] as? String ?? ""
+                            let url = data["URL"] as? String ?? ""
+                            let information = data["Information"] as? String ?? ""
+                            let book = Book(bookName: name, information: information, url: url)
+                            self.allBooks.append(book)
+                        
+                    }
+                    self.myTableView.reloadData()
                 }
                 
             }
-            /*userRef.getDocuments { snapshot, error in
-                if let error = error{
-                    print(error)
-                }
-                guard
-                       let snapshot = snapshot,
-                    let user = snapshot.isEmpty ? snapshot : nil
-                   else {
-                       print("Document exist == false")
-                       return
-                   }
-                print("Document exist == true. User data:  \(user.documents)")
-            }*/
-            
+           
+           
             
         }
         // Uncomment the following line to preserve selection between presentations
@@ -52,26 +56,89 @@ class ManageBooksTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    override func tableView(_ tableView: UITableView, commit editingStyle:
+        UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
+        let userRef = database.collection("myCollection")
+        userRef.document(credentials!).collection("Books").document(allBooks[indexPath.row].name).delete
+     { error in
+                if let error = error{
+                    print(error)
+                }
+                else{
+                    self.allBooks.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.reloadData()
+                    print("Successfully Deleted")
+                }
+            }
+            
+        }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0{
+            return true
+        }
+        return false
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        if section == 0
+        {
+        return allBooks.count
+        }
+        else
+        {
+            return 1
+        }
     }
-
-    /*
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            return "Books"
+        }
+        else
+        {
+            return ""
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        if indexPath.section == 0
+        {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell", for: indexPath)
+        cell.textLabel?.text = allBooks[indexPath.row].name
+            cell.detailTextLabel?.text = allBooks[indexPath.row].information
         // Configure the cell...
 
         return cell
+        }
+        else
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "numCell", for: indexPath)
+            cell.textLabel?.text = "You have written " + String(allBooks.count) + "books"
+            // Configure the cell...
+            return cell
+          
+        }
+      
     }
-    */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "modifyBookSegue"
+        {
+            let destVC = segue.destination as! AddBookViewController
+            destVC.credentials = credentials
+            if let selectedRow = myTableView.indexPathForSelectedRow?.row
+            {
+                destVC.currentBook = allBooks[selectedRow]
+            }
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

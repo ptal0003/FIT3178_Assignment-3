@@ -7,11 +7,11 @@
 
 import Foundation
 
-class Book: NSObject, Encodable{
+class Book: NSObject, Decodable{
     var name: String
     var information: String
     var url: String
-    init(_ bookName: String, _ information: String, url: String) {
+    init(bookName: String, information: String, url: String) {
         self.information = information
         self.name  = bookName
         self.url = url

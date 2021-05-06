@@ -8,6 +8,8 @@
 import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
+import Firebase
+import FirebaseFirestore
 class LoginViewController: UIViewController, LoginButtonDelegate {
     var loggedCredential: String?
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {

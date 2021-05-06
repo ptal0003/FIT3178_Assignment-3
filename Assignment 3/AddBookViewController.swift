@@ -12,9 +12,11 @@ import UniformTypeIdentifiers
 class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     var credentials: String?
     var selectedURL: URL?
+    var currentBook: Book?
     let storage = Storage.storage()
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameTextView: UITextView!
+    @IBOutlet weak var instructionTextView: UITextView!
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
         selectedURL = urls.first
@@ -35,6 +37,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
            present(documentPicker, animated: true, completion: nil)
     }
     @IBAction func saveBook(_ sender: Any) {
+        
         addData(nameTextField.text ?? "", nameTextView.text ?? "")
     }
     lazy var database = {
@@ -42,8 +45,10 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        if let currentBook = currentBook {
+            nameTextField.text = currentBook.name
+            instructionTextView.text = currentBook.information
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -54,45 +59,87 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
             print("Credentials not set")
             return
         }
-        if let selectedURL = selectedURL {
-            let tempDirPaths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
-            let tempDir = tempDirPaths[0]
-            let localURL = tempDir.appendingPathComponent(selectedURL.lastPathComponent)
+        if let currentBook = currentBook {
             
-            selectedURL.startAccessingSecurityScopedResource()
-            try? FileManager.default.copyItem(at: selectedURL, to: localURL)
-            self.selectedURL?.stopAccessingSecurityScopedResource()
-//            let fileURL = URL(fileURLWithPath: //selectedURL!.path)
-      //      print(FileManager.default.fileExists(atPath: selectedURL!.path))
-            let storageRef = storage.reference(withPath: "/books/\(selectedURL.lastPathComponent)")
-
-            storageRef.putFile(from: localURL, metadata: nil) { metadata, error in
-                if let error = error{
-                    print(error)
-                }
-                else
-                {
-                    storageRef.downloadURL { url, error in
-                        if let error = error {
-                            print("Could not get downloadable link \(error)")
-                        }
-                        else{
-                            let downloadURL = url?.absoluteString
-                            let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL]
-                            userRef.document(credentials).collection("Books").document(bookName).setData(newBook)
-                        }
+            if let selectedURL = selectedURL {
+                let tempDirPaths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
+                let tempDir = tempDirPaths[0]
+                let localURL = tempDir.appendingPathComponent(selectedURL.lastPathComponent)
+                
+                selectedURL.startAccessingSecurityScopedResource()
+                try? FileManager.default.copyItem(at: selectedURL, to: localURL)
+                self.selectedURL?.stopAccessingSecurityScopedResource()
+                let storageRef = storage.reference(withPath: "/books/\(selectedURL.lastPathComponent)")
+                storageRef.putFile(from: localURL, metadata: nil) { metadata, error in
+                    if let error = error{
+                        print(error)
                     }
-                    
-                    
-                    print("Successfully Uploaded")
-                }
-            }
+                    else
+                    {
+                        storageRef.downloadURL { url, error in
+                            if let error = error {
+                                print("Could not get downloadable link \(error)")
+                            }
+                            else{
+                                let downloadURL = url?.absoluteString
 
+                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL]
+                                userRef.document(credentials).collection("Books").document(bookName).updateData(newBook)
+                            }
+                        }
+                        
+                        
+                        print("Successfully Uploaded")
+                    }
+                }
+
+            }
+            else {
+                let newBook = ["Name": bookName, "Information": bookInformation, "URL": currentBook.url]
+                userRef.document(credentials).setData(["sampleAttribute":"myName"])
+                userRef.document(credentials).collection("Books").document(bookName).updateData(newBook)
+
+            }
         }
-        
-        
+        else
+        {
+            if let selectedURL = selectedURL {
+                let tempDirPaths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
+                let tempDir = tempDirPaths[0]
+                let localURL = tempDir.appendingPathComponent(selectedURL.lastPathComponent)
+                
+                selectedURL.startAccessingSecurityScopedResource()
+                try? FileManager.default.copyItem(at: selectedURL, to: localURL)
+                self.selectedURL?.stopAccessingSecurityScopedResource()
+                let storageRef = storage.reference(withPath: "/books/\(selectedURL.lastPathComponent)")
+                storageRef.putFile(from: localURL, metadata: nil) { metadata, error in
+                    if let error = error{
+                        print(error)
+                    }
+                    else
+                    {
+                        storageRef.downloadURL { url, error in
+                            if let error = error {
+                                print("Could not get downloadable link \(error)")
+                            }
+                            else{
+                                let downloadURL = url?.absoluteString
+                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL]
+                                userRef.document(credentials).setData(["sampleAttribute":"myName"])
+                                userRef.document(credentials).collection("Books").document(bookName).setData(newBook)
+                            }
+                        }
+                        
+                        
+                        print("Successfully Uploaded")
+                    }
+                }
+
+            }
+            
+            
+        }
     }
-    
     /*
     // MARK: - Navigation
 

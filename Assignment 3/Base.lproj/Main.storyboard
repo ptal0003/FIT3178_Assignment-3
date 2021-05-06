@@ -206,16 +206,17 @@
         <scene sceneID="f6B-6M-SQT">
             <objects>
                 <tableViewController id="5P4-z9-yXB" customClass="ManageBooksTableViewController" customModule="Assignment_3" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8gy-tK-61o">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="8gy-tK-61o">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookCell" textLabel="Rk8-gj-l3b" detailTextLabel="97c-0M-P2X" style="IBUITableViewCellStyleSubtitle" id="g2Y-Ie-Mda">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="53.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="bookCell" textLabel="Rk8-gj-l3b" detailTextLabel="97c-0M-P2X" style="IBUITableViewCellStyleSubtitle" id="g2Y-Ie-Mda">
+                                <rect key="frame" x="20" y="49.5" width="374" height="53.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g2Y-Ie-Mda" id="2QN-ee-W8u">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="53.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="344.5" height="53.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Rk8-gj-l3b">
@@ -234,12 +235,15 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="iQg-YE-Z5O" kind="show" identifier="modifyBookSegue" id="KAw-xB-xOe"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="numCell" id="ZgV-FF-VVr">
-                                <rect key="frame" x="0.0" y="78" width="414" height="43.5"/>
+                                <rect key="frame" x="20" y="103" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZgV-FF-VVr" id="Ee9-v7-zGc">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -250,6 +254,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Books" id="uib-yn-KCw"/>
+                    <connections>
+                        <outlet property="myTableView" destination="8gy-tK-61o" id="2nq-eO-Hdo"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8x1-q8-Vxc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -392,6 +399,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="instructionTextView" destination="UrQ-1n-w1O" id="fbt-iA-htZ"/>
                         <outlet property="nameTextField" destination="1ZR-5x-uIf" id="E88-GO-Mkb"/>
                         <outlet property="nameTextView" destination="UrQ-1n-w1O" id="Is5-Wl-OwO"/>
                     </connections>
@@ -419,6 +427,9 @@
             <point key="canvasLocation" x="15.942028985507248" y="99.776785714285708"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="KAw-xB-xOe"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="google_logo" width="1200" height="406"/>
         <image name="logo" width="949" height="314"/>
