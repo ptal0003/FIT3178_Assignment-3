@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 class ViewController: UIViewController {
     var credentials: String?
+    var displayName: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,11 +20,13 @@ class ViewController: UIViewController {
         {
             let destVC = segue.destination as! AddBookViewController
             destVC.credentials = credentials
+            destVC.displayName = displayName
         }
         if segue.identifier == "manageBookSegue"
         {
             let destVC = segue.destination as! ManageBooksTableViewController
             destVC.credentials = credentials
+            destVC.displayName = displayName
         }
     }
 

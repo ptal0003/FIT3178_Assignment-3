@@ -12,6 +12,10 @@ import Firebase
 import FirebaseFirestore
 class LoginViewController: UIViewController, LoginButtonDelegate {
     var loggedCredential: String?
+    var displayName: String?
+    var database = {
+        return Firestore.firestore()
+    }()
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -19,9 +23,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
           }
         let facebookToken = AccessToken.current!.tokenString
         let credential = FacebookAuthProvider.credential(withAccessToken: facebookToken)
-    
-       
-        
+        let userRef = database.collection("myCollection")
         Auth.auth().signIn(with: credential) { (result, error) in
           if let error = error {
             print("Firebase auth fails with error: \(error.localizedDescription)")
@@ -29,6 +31,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             print("Firebase login succeeds")
             
             self.loggedCredential = result.user.uid
+            self.displayName = result.user.displayName
+            userRef.document(self.loggedCredential!).setData(["type":"student"])
             DispatchQueue.main.async {
             
                 self.performSegue(withIdentifier: "ProfessorLoginSegue", sender: nil)
@@ -73,6 +77,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         {
             let destVC = segue.destination as! ViewController
             destVC.credentials = loggedCredential
+            destVC.displayName = displayName
         }
     }
 }

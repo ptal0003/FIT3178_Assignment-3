@@ -11,6 +11,7 @@ import FirebaseFirestore
 import UniformTypeIdentifiers
 class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     var credentials: String?
+    var displayName: String?
     var selectedURL: URL?
     var currentBook: Book?
     let storage = Storage.storage()
@@ -54,7 +55,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     
     func addData(_ bookName: String, _ bookInformation: String) {
         let userRef = database.collection("myCollection")
-    
+        let bookRef = database.collection("books")
         guard let credentials = credentials else {
             print("Credentials not set")
             return
@@ -83,8 +84,10 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                             else{
                                 let downloadURL = url?.absoluteString
 
-                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL]
+                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName]
+                                bookRef.document(bookName).updateData(newBook)
                                 userRef.document(credentials).collection("Books").document(bookName).updateData(newBook)
+                                
                             }
                         }
                         
@@ -95,8 +98,8 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
 
             }
             else {
-                let newBook = ["Name": bookName, "Information": bookInformation, "URL": currentBook.url]
-                userRef.document(credentials).setData(["sampleAttribute":"myName"])
+                let newBook = ["Name": bookName, "Information": bookInformation, "URL": currentBook.url, "author": self.displayName]
+                bookRef.document(bookName).updateData(newBook)
                 userRef.document(credentials).collection("Books").document(bookName).updateData(newBook)
 
             }
@@ -124,8 +127,8 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                             }
                             else{
                                 let downloadURL = url?.absoluteString
-                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL]
-                                userRef.document(credentials).setData(["sampleAttribute":"myName"])
+                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName]
+                                self.database.collection("books").document(bookName).setData(newBook)
                                 userRef.document(credentials).collection("Books").document(bookName).setData(newBook)
                             }
                         }

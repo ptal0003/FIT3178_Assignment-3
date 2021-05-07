@@ -14,6 +14,7 @@ struct ShowData: Codable{
     var information: String
 }
 class ManageBooksTableViewController: UITableViewController {
+    var displayName: String?
     @IBOutlet var myTableView: UITableView!
     var credentials: String?
     var database = {
@@ -35,9 +36,10 @@ class ManageBooksTableViewController: UITableViewController {
                             let name = data["Name"] as? String ?? ""
                             let url = data["URL"] as? String ?? ""
                             let information = data["Information"] as? String ?? ""
-                            let book = Book(bookName: name, information: information, url: url)
+                            let author = data["author"] as? String ?? ""
+                            let book = Book(bookName: name, information: information, url: url,author: author)
                             self.allBooks.append(book)
-                        
+                            
                     }
                     self.myTableView.reloadData()
                 }
