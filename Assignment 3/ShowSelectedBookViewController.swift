@@ -23,9 +23,6 @@ class ShowSelectedBookViewController: UIViewController {
         pdfView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         if let currentBook = currentBook{
-            nameLabel.text = currentBook.name
-            authorLabel.text = currentBook.author
-            informationView.text = currentBook.information
             let storageRef =  Storage.storage().reference(forURL: currentBook.url)
             storageRef.getData(maxSize: 25*1024*1024) { data, error in
                 if let error = error {
@@ -34,8 +31,28 @@ class ShowSelectedBookViewController: UIViewController {
                 else if let data = data
                 {
                     pdfView.document = PDFDocument(data: data)
+                    var docURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)
+                    var fileURL = docURL[0].appendingPathComponent("myBook.pdf")
                     
+                    do
+                    {   try data.write(to: fileURL as! URL, options: .atomic)
+                    }
+                    catch{
+                        print(error)
+                    }
                 }
+                let docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last) as! NSURL
+                
+
+                do {
+                    var c = try FileManager.default.contentsOfDirectory(atPath: (docURL.path!))
+                    print(c)
+                }
+                catch{
+                    print(error)
+                }
+                //print the file listing to the console
+        
             }
             
         }

@@ -9,7 +9,23 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-class DisplayBooksTableViewController: UITableViewController {
+class DisplayBooksTableViewController: UITableViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text?.lowercased() else {
+            return
+           }
+        if searchText.count > 0 {
+            filteredBooks = allBooks.filter({(book: Book) -> Bool in return (book.name.lowercased().contains(searchText)) || (book.information.lowercased().contains(searchText)) ||
+                (book.author.lowercased().contains(searchText))
+            })
+            tableView.reloadData()
+        }
+       
+        
+        
+        
+    }
+    var filteredBooks: [Book] = []
     var database = {
         return Firestore.firestore()
     }()
@@ -17,6 +33,15 @@ class DisplayBooksTableViewController: UITableViewController {
     @IBOutlet var myTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search All Books"
+        navigationItem.searchController = searchController
+       
+        // This view controller decides how the search controller is presented
+        definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
         database.collection("books").getDocuments { querySnapshot, error in
             if let error = error{
                 print(error)
@@ -33,7 +58,8 @@ class DisplayBooksTableViewController: UITableViewController {
                     self.allBooks.append(book)
                     
                 }
-                self.myTableView.reloadData()
+                
+                self.filteredBooks = self.allBooks
             }
         }
         // Uncomment the following line to preserve selection between presentations
@@ -52,14 +78,14 @@ class DisplayBooksTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return allBooks.count
+        return filteredBooks.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell", for: indexPath)
-        cell.textLabel?.text = allBooks[indexPath.row].name
-        cell.detailTextLabel?.text = allBooks[indexPath.row].information
+        cell.textLabel?.text = filteredBooks[indexPath.row].name
+        cell.detailTextLabel?.text = filteredBooks[indexPath.row].information
         return cell
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

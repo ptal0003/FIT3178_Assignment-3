@@ -23,8 +23,8 @@ class ManageBooksTableViewController: UITableViewController {
     var allBooks: [Book] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let credentials = credentials{
-            print(credentials)
             database.collection("myCollection/\(credentials)/Books").getDocuments { snapshot, error in
                 if let error = error{
                     print(error)
@@ -61,18 +61,26 @@ class ManageBooksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle:
         UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        
+   
         let userRef = database.collection("myCollection")
-        userRef.document(credentials!).collection("Books").document(allBooks[indexPath.row].name).delete
-     { error in
+        userRef.document(credentials!).collection("Books").document(allBooks[indexPath.row].name).delete{ error in
                 if let error = error{
                     print(error)
                 }
                 else{
-                    self.allBooks.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                    tableView.reloadData()
-                    print("Successfully Deleted")
+                    let bookRef = self.database.collection("books")
+                    bookRef.document(self.allBooks[indexPath.row].name).delete { error in
+                        if let error = error{
+                            print(error)
+                        }
+                        else{
+                            self.allBooks.remove(at: indexPath.row)
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                            tableView.reloadData()
+                            print("Successfully Deleted")
+                        }
+                    }
+                    
                 }
             }
             

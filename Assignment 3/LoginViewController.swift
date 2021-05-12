@@ -50,12 +50,13 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+       
         let loginButton = FBLoginButton()
         loginButton.delegate = self
-        loginButton.layoutMargins.left = 30
-        loginButton.layoutMargins.right = 30
-        loginButton.layoutMargins.bottom = 30
+        loginButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        loginButton.layoutMargins.left = 0
+        loginButton.layoutMargins.right = 0
+        loginButton.layoutMargins.bottom = 0
         loginButton.center = view.center
         loginButton.sizeToFit()
                 view.addSubview(loginButton)

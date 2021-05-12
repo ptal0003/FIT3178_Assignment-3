@@ -25,6 +25,7 @@
 		0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */; };
 		0DCDE40F264522DE0002740B /* DisplayBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDE40E264522DE0002740B /* DisplayBooksTableViewController.swift */; };
 		0DCDE4112645325B0002740B /* ShowSelectedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */; };
+		0DD8ABCA264B8F9300CEA370 /* DownloadsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */; };
 		44B05C4F679552CDB3396A0C /* Pods_Assignment_3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C86E81DFE4DF15C8CBA413F /* Pods_Assignment_3.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
 		0DCDE40E264522DE0002740B /* DisplayBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBooksTableViewController.swift; sourceTree = "<group>"; };
 		0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSelectedBookViewController.swift; sourceTree = "<group>"; };
+		0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewController.swift; sourceTree = "<group>"; };
 		2C86E81DFE4DF15C8CBA413F /* Pods_Assignment_3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Assignment_3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E4174C9201F0BB00CE5E21E /* Pods-Assignment 3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment 3.release.xcconfig"; path = "Target Support Files/Pods-Assignment 3/Pods-Assignment 3.release.xcconfig"; sourceTree = "<group>"; };
 		C347FE6372B2612A9300787D /* Pods-Assignment 3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment 3.debug.xcconfig"; path = "Target Support Files/Pods-Assignment 3/Pods-Assignment 3.debug.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */,
 				0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */,
 				0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */,
+				0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */,
 				0D0FC2D626356941002BECC3 /* ViewController.swift */,
 				0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */,
 				0D07D7382636C82C0010AB82 /* PDFAdderViewController.swift */,
@@ -366,6 +369,7 @@
 				0D0FC2D726356941002BECC3 /* ViewController.swift in Sources */,
 				0D0FC2D326356941002BECC3 /* AppDelegate.swift in Sources */,
 				0D07D727263585D30010AB82 /* User.swift in Sources */,
+				0DD8ABCA264B8F9300CEA370 /* DownloadsTableViewController.swift in Sources */,
 				0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */,
 				0D0FC2D526356941002BECC3 /* SceneDelegate.swift in Sources */,
 				0DCDE4112645325B0002740B /* ShowSelectedBookViewController.swift in Sources */,
