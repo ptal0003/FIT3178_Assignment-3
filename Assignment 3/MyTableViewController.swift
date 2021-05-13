@@ -1,15 +1,23 @@
 //
-//  DisplayBooksTableViewController.swift
+//  MyTableViewController.swift
 //  Assignment 3
 //
-//  Created by Jyoti Talukdar on 07/05/21.
+//  Created by Jyoti Talukdar on 13/05/21.
 //
 
 import UIKit
 import Firebase
-import FirebaseFirestore
-
-class DisplayBooksTableViewController: UITableViewController, UISearchResultsUpdating {
+class MyTableViewController: UITableViewController, UISearchResultsUpdating {
+    var filteredBooks: [Book] = []
+    var allBooks: [Book] = []
+    var database = {
+        return Firestore.firestore()
+    }()
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
@@ -25,14 +33,18 @@ class DisplayBooksTableViewController: UITableViewController, UISearchResultsUpd
         
         
     }
-    var filteredBooks: [Book] = []
-    var database = {
-        return Firestore.firestore()
-    }()
-    var allBooks: [Book] = []
-    @IBOutlet var myTableView: UITableView!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! SearchBookTableViewCell
+        cell.nameLabel.text = "Harry Potter"
+        cell.authorLabel.text = "Prateek Talukdar"
+        return cell
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -55,6 +67,7 @@ class DisplayBooksTableViewController: UITableViewController, UISearchResultsUpd
                     let information = data["Information"] as? String ?? ""
                     let author = data["author"] as? String ?? ""
                     let coverURL = data["coverURL"] as? String ?? ""
+                    
                     let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL)
                     self.allBooks.append(book)
                     
@@ -62,42 +75,30 @@ class DisplayBooksTableViewController: UITableViewController, UISearchResultsUpd
                 
                 self.filteredBooks = self.allBooks
             }
-        }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // Do any additional setup after loading the view.
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return filteredBooks.count
-    }
-
     
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell", for: indexPath)
-        cell.textLabel?.text = filteredBooks[indexPath.row].name
-        cell.detailTextLabel?.text = filteredBooks[indexPath.row].information
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
         return cell
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showSelectedBookSegue"
-        {
-            let destVC = segue.destination as! ShowSelectedBookViewController
-            destVC.currentBook = allBooks[myTableView.indexPathForSelectedRow!.row]
-            destVC.navigationItem.title = allBooks[myTableView.indexPathForSelectedRow!.row].name
-        }
-        
-    }
+    */
 
     /*
     // Override to support conditional editing of the table view.

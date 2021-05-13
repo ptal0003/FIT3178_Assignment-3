@@ -23,8 +23,9 @@ class ManageBooksTableViewController: UITableViewController {
     var allBooks: [Book] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.isNavigationBarHidden = false
         if let credentials = credentials{
+            
             database.collection("myCollection/\(credentials)/Books").getDocuments { snapshot, error in
                 if let error = error{
                     print(error)
@@ -37,11 +38,13 @@ class ManageBooksTableViewController: UITableViewController {
                             let url = data["URL"] as? String ?? ""
                             let information = data["Information"] as? String ?? ""
                             let author = data["author"] as? String ?? ""
-                            let book = Book(bookName: name, information: information, url: url,author: author)
+                            let coverURL = data["coverURL"] as? String ?? ""
+                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL)
                             self.allBooks.append(book)
                             
                     }
                     self.myTableView.reloadData()
+                    
                 }
                 
             }
@@ -147,6 +150,11 @@ class ManageBooksTableViewController: UITableViewController {
             {
                 destVC.currentBook = allBooks[selectedRow]
             }
+        }
+        if segue.identifier == "addBooksSegue"{
+            let destVC = segue.destination as! AddBookViewController
+            destVC.credentials = credentials
+            destVC.displayName = displayName
         }
     }
 

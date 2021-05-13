@@ -21,8 +21,13 @@
 		0D0FC2ED26356943002BECC3 /* Assignment_3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FC2EC26356943002BECC3 /* Assignment_3Tests.swift */; };
 		0D0FC2F826356943002BECC3 /* Assignment_3UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0FC2F726356943002BECC3 /* Assignment_3UITests.swift */; };
 		0D320718263FF368005A29EB /* ManageBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */; };
+		0D3548BD264D890700AA2613 /* ShowBookStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */; };
+		0D3548BF264DA88700AA2613 /* StudentMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548BE264DA88700AA2613 /* StudentMainViewController.swift */; };
 		0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3C8251263B276B007CB332 /* LoginViewController.swift */; };
 		0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */; };
+		0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */; };
+		0D7BDBBB264CEFCD00A08C39 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBBA264CEFCD00A08C39 /* MyViewController.swift */; };
+		0D7BDBBD264CF9D800A08C39 /* MyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBBC264CF9D800A08C39 /* MyTableViewController.swift */; };
 		0DCDE40F264522DE0002740B /* DisplayBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDE40E264522DE0002740B /* DisplayBooksTableViewController.swift */; };
 		0DCDE4112645325B0002740B /* ShowSelectedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */; };
 		0DD8ABCA264B8F9300CEA370 /* DownloadsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */; };
@@ -66,9 +71,14 @@
 		0D0FC2F726356943002BECC3 /* Assignment_3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment_3UITests.swift; sourceTree = "<group>"; };
 		0D0FC2F926356943002BECC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBooksTableViewController.swift; sourceTree = "<group>"; };
+		0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBookStudentViewController.swift; sourceTree = "<group>"; };
+		0D3548BE264DA88700AA2613 /* StudentMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentMainViewController.swift; sourceTree = "<group>"; };
 		0D3C8251263B276B007CB332 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0D5748E926384BB400BA0200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Assignment 3/Info.plist"; sourceTree = "<group>"; };
 		0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
+		0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookTableViewCell.swift; sourceTree = "<group>"; };
+		0D7BDBBA264CEFCD00A08C39 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		0D7BDBBC264CF9D800A08C39 /* MyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewController.swift; sourceTree = "<group>"; };
 		0DCDE40E264522DE0002740B /* DisplayBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBooksTableViewController.swift; sourceTree = "<group>"; };
 		0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSelectedBookViewController.swift; sourceTree = "<group>"; };
 		0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsTableViewController.swift; sourceTree = "<group>"; };
@@ -136,13 +146,18 @@
 				0D0FC2D426356941002BECC3 /* SceneDelegate.swift */,
 				0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */,
 				0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */,
+				0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */,
+				0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */,
 				0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */,
 				0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */,
 				0D0FC2D626356941002BECC3 /* ViewController.swift */,
 				0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */,
 				0D07D7382636C82C0010AB82 /* PDFAdderViewController.swift */,
+				0D3548BE264DA88700AA2613 /* StudentMainViewController.swift */,
 				0DCDE40E264522DE0002740B /* DisplayBooksTableViewController.swift */,
 				0D3C8251263B276B007CB332 /* LoginViewController.swift */,
+				0D7BDBBA264CEFCD00A08C39 /* MyViewController.swift */,
+				0D7BDBBC264CF9D800A08C39 /* MyTableViewController.swift */,
 				0D0FC2D826356941002BECC3 /* Main.storyboard */,
 				0D0FC2DE26356943002BECC3 /* Assets.xcassets */,
 				0D0FC2E026356943002BECC3 /* LaunchScreen.storyboard */,
@@ -361,8 +376,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */,
+				0D3548BD264D890700AA2613 /* ShowBookStudentViewController.swift in Sources */,
 				0D320718263FF368005A29EB /* ManageBooksTableViewController.swift in Sources */,
 				0DCDE40F264522DE0002740B /* DisplayBooksTableViewController.swift in Sources */,
+				0D7BDBBD264CF9D800A08C39 /* MyTableViewController.swift in Sources */,
 				0D07D722263585CB0010AB82 /* Book.swift in Sources */,
 				0D07D7392636C82C0010AB82 /* PDFAdderViewController.swift in Sources */,
 				0D07D72C263586C10010AB82 /* AddBookViewController.swift in Sources */,
@@ -372,6 +389,9 @@
 				0DD8ABCA264B8F9300CEA370 /* DownloadsTableViewController.swift in Sources */,
 				0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */,
 				0D0FC2D526356941002BECC3 /* SceneDelegate.swift in Sources */,
+				0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */,
+				0D3548BF264DA88700AA2613 /* StudentMainViewController.swift in Sources */,
+				0D7BDBBB264CEFCD00A08C39 /* MyViewController.swift in Sources */,
 				0DCDE4112645325B0002740B /* ShowSelectedBookViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

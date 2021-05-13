@@ -35,7 +35,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             userRef.document(self.loggedCredential!).setData(["type":"student"])
             DispatchQueue.main.async {
             
-                self.performSegue(withIdentifier: "ProfessorLoginSegue", sender: nil)
+                self.performSegue(withIdentifier: "booksByMeSegue", sender: nil)
                
             }
           }
@@ -50,7 +50,11 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.navigationController?.isNavigationBarHidden = true
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "home_bg")
+        backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
         let loginButton = FBLoginButton()
         loginButton.delegate = self
         loginButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -59,7 +63,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         loginButton.layoutMargins.bottom = 0
         loginButton.center = view.center
         loginButton.sizeToFit()
-                view.addSubview(loginButton)
+        view.addSubview(loginButton)
         // Do any additional setup after loading the view.
     }
     
@@ -74,9 +78,9 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     }
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ProfessorLoginSegue"
+        if segue.identifier == "booksByMeSegue"
         {
-            let destVC = segue.destination as! ViewController
+            let destVC = segue.destination as! ManageBooksTableViewController
             destVC.credentials = loggedCredential
             destVC.displayName = displayName
         }

@@ -12,10 +12,12 @@ class Book: NSObject, Decodable{
     var information: String
     var url: String
     var author: String
-    init(bookName: String, information: String, url: String, author: String) {
+    var coverURL: String
+    init(bookName: String, information: String, url: String, author: String, coverURL: String) {
         self.information = information
         self.name  = bookName
         self.url = url
         self.author = author
+        self.coverURL = coverURL
     }
 }
