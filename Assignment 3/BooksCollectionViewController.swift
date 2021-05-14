@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 let itemsPerRow: CGFloat = 2
 let sectionInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+
 class BooksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var displayName: String?
     var credentials: String?
@@ -106,7 +107,6 @@ class BooksCollectionViewController: UICollectionViewController, UICollectionVie
         return allBooks.count
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookViewCell", for: indexPath) as! BookCollectionViewCell

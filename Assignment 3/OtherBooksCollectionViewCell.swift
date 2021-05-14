@@ -9,4 +9,9 @@ import UIKit
 
 class OtherBooksCollectionViewCell: UICollectionViewCell {
     
+   
+    @IBOutlet weak var imageView: UIImageView!
+
+    
+    
 }

@@ -118,9 +118,14 @@ class MyViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showStudentBookSegue"
         {
+            
             let destVC = segue.destination as! ShowBookStudentViewController
             if let selectedRow = myTableView.indexPathForSelectedRow?.row
             {
+                destVC.otherBookCovers = []
+                destVC.otherBooksByAuthor = []
+                destVC.allBooks = allBooks
+                destVC.allCovers = images
                 destVC.coverImage = images[selectedRow]
                 destVC.currentBook = allBooks[selectedRow]
                 for counter in 0...allBooks.count-1
