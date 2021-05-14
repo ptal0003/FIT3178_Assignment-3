@@ -23,8 +23,9 @@
 		0D320718263FF368005A29EB /* ManageBooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */; };
 		0D3548BD264D890700AA2613 /* ShowBookStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */; };
 		0D3548BF264DA88700AA2613 /* StudentMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548BE264DA88700AA2613 /* StudentMainViewController.swift */; };
+		0D3548C2264DCC4600AA2613 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */; };
+		0D3548C4264DCE2100AA2613 /* BooksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548C3264DCE2100AA2613 /* BooksCollectionViewController.swift */; };
 		0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3C8251263B276B007CB332 /* LoginViewController.swift */; };
-		0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */; };
 		0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */; };
 		0D7BDBBB264CEFCD00A08C39 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBBA264CEFCD00A08C39 /* MyViewController.swift */; };
 		0D7BDBBD264CF9D800A08C39 /* MyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBBC264CF9D800A08C39 /* MyTableViewController.swift */; };
@@ -73,9 +74,10 @@
 		0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageBooksTableViewController.swift; sourceTree = "<group>"; };
 		0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBookStudentViewController.swift; sourceTree = "<group>"; };
 		0D3548BE264DA88700AA2613 /* StudentMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentMainViewController.swift; sourceTree = "<group>"; };
+		0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D3548C3264DCE2100AA2613 /* BooksCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewController.swift; sourceTree = "<group>"; };
 		0D3C8251263B276B007CB332 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0D5748E926384BB400BA0200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Assignment 3/Info.plist"; sourceTree = "<group>"; };
-		0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInViewController.swift; sourceTree = "<group>"; };
 		0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookTableViewCell.swift; sourceTree = "<group>"; };
 		0D7BDBBA264CEFCD00A08C39 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		0D7BDBBC264CF9D800A08C39 /* MyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewController.swift; sourceTree = "<group>"; };
@@ -144,13 +146,14 @@
 				0D07D72B263586C10010AB82 /* AddBookViewController.swift */,
 				0D07D726263585D30010AB82 /* User.swift */,
 				0D0FC2D426356941002BECC3 /* SceneDelegate.swift */,
-				0D7A9E7E26375945002F2390 /* GoogleSignInViewController.swift */,
 				0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */,
 				0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */,
 				0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */,
+				0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */,
 				0D320717263FF367005A29EB /* ManageBooksTableViewController.swift */,
 				0DD8ABC9264B8F9300CEA370 /* DownloadsTableViewController.swift */,
 				0D0FC2D626356941002BECC3 /* ViewController.swift */,
+				0D3548C3264DCE2100AA2613 /* BooksCollectionViewController.swift */,
 				0DCDE4102645325A0002740B /* ShowSelectedBookViewController.swift */,
 				0D07D7382636C82C0010AB82 /* PDFAdderViewController.swift */,
 				0D3548BE264DA88700AA2613 /* StudentMainViewController.swift */,
@@ -378,6 +381,7 @@
 				0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */,
 				0D3548BD264D890700AA2613 /* ShowBookStudentViewController.swift in Sources */,
 				0D320718263FF368005A29EB /* ManageBooksTableViewController.swift in Sources */,
+				0D3548C2264DCC4600AA2613 /* BookCollectionViewCell.swift in Sources */,
 				0DCDE40F264522DE0002740B /* DisplayBooksTableViewController.swift in Sources */,
 				0D7BDBBD264CF9D800A08C39 /* MyTableViewController.swift in Sources */,
 				0D07D722263585CB0010AB82 /* Book.swift in Sources */,
@@ -387,8 +391,8 @@
 				0D0FC2D326356941002BECC3 /* AppDelegate.swift in Sources */,
 				0D07D727263585D30010AB82 /* User.swift in Sources */,
 				0DD8ABCA264B8F9300CEA370 /* DownloadsTableViewController.swift in Sources */,
-				0D7A9E7F26375945002F2390 /* GoogleSignInViewController.swift in Sources */,
 				0D0FC2D526356941002BECC3 /* SceneDelegate.swift in Sources */,
+				0D3548C4264DCE2100AA2613 /* BooksCollectionViewController.swift in Sources */,
 				0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */,
 				0D3548BF264DA88700AA2613 /* StudentMainViewController.swift in Sources */,
 				0D7BDBBB264CEFCD00A08C39 /* MyViewController.swift in Sources */,

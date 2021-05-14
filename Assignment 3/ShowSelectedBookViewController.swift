@@ -23,6 +23,7 @@ class ShowSelectedBookViewController: UIViewController {
         pdfView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         if let currentBook = currentBook{
+            navigationItem.title = currentBook.name
             let storageRef =  Storage.storage().reference(forURL: currentBook.url)
             storageRef.getData(maxSize: 25*1024*1024) { data, error in
                 if let error = error {

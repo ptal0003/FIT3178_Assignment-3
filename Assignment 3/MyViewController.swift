@@ -12,6 +12,7 @@ class MyViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
     var filteredBooks: [Book] = []
     var allBooks: [Book] = []
     var images: [UIImage] = []
+
     var database = {
         return Firestore.firestore()
     }()
@@ -122,6 +123,16 @@ class MyViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
             {
                 destVC.coverImage = images[selectedRow]
                 destVC.currentBook = allBooks[selectedRow]
+                for counter in 0...allBooks.count-1
+                {
+                    if allBooks[counter].author == allBooks[selectedRow].author
+                    {
+                        destVC.otherBooksByAuthor.append(allBooks[counter])
+                        destVC.otherBookCovers.append(images[counter])
+                    }
+                }
+                destVC.otherBooksByAuthor.remove(at: allBooks.firstIndex(of: allBooks[selectedRow])!)
+                destVC.otherBookCovers.remove(at: allBooks.firstIndex(of: allBooks[selectedRow])!)
             }
             
         }

@@ -6,23 +6,84 @@
 //
 
 import UIKit
-
-private let reuseIdentifier = "Cell"
-
-class BooksCollectionViewController: UICollectionViewController {
-
+import Firebase
+let itemsPerRow: CGFloat = 2
+let sectionInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+class BooksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    var displayName: String?
+    var credentials: String?
+    var coverImages: [UIImage] = []
+    var database = {
+        return Firestore.firestore()
+    }()
+ 
+    var allBooks: [Book] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let storageRef = Storage.storage().reference()
+        if let credentials = credentials{
+            
+            database.collection("myCollection/\(credentials)/Books").getDocuments { snapshot, error in
+                if let error = error{
+                    print(error)
+                }
+                else{
+                    for document in snapshot!.documents
+                    {
+                            let data = document.data()
+                            let name = data["Name"] as? String ?? ""
+                            let url = data["URL"] as? String ?? ""
+                            let information = data["Information"] as? String ?? ""
+                            let author = data["author"] as? String ?? ""
+                            let coverURL = data["coverURL"] as? String ?? ""
+                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL)
+                        let imageRef = storageRef.child("cover/\(name)Cover")
+                        imageRef.getData(maxSize: 1*1024*1024) { data, error in
+                            if let error = error{
+                                print(error)
+                            }
+                            else if let data = data{
+                                let image = UIImage(data: data)
+                                self.coverImages.append(image!)
+                                self.allBooks.append(book)
+                                self.collectionView.reloadData()
 
+                            }
+                        }
+                            
+                            
+                    }
+                    
+                    
+                }
+                
+            }
+           
+           
+            
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+       
         // Do any additional setup after loading the view.
     }
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+            let availableWidth = view.frame.width - paddingSpace
+            let widthPerItem = availableWidth / itemsPerRow
+            
+            return CGSize(width: widthPerItem, height: widthPerItem)
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
     /*
     // MARK: - Navigation
 
@@ -37,18 +98,24 @@ class BooksCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return allBooks.count
     }
-
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookViewCell", for: indexPath) as! BookCollectionViewCell
+        cell.imageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.7).cgColor
+        cell.imageView.layer.masksToBounds = true
+        cell.imageView.contentMode = .scaleToFill
+        cell.imageView.layer.borderWidth = 2
+        cell.imageView.image = coverImages[indexPath.row]
+        cell.nameLabel.text = allBooks[indexPath.row].name
         // Configure the cell
     
         return cell
@@ -84,5 +151,21 @@ class BooksCollectionViewController: UICollectionViewController {
     
     }
     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "modifyBookSegue"
+        {
+            let destVC = segue.destination as! AddBookViewController
+            destVC.credentials = credentials
+            if let selectedRow = self.collectionView.indexPathsForSelectedItems?.first
+            {
+                destVC.currentBook = allBooks[selectedRow.row]
+            }
+        }
+        if segue.identifier == "addBooksSegue"{
+            let destVC = segue.destination as! AddBookViewController
+            destVC.credentials = credentials
+            destVC.displayName = displayName
+        }
+    }
 
 }

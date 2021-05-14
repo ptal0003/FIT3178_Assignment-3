@@ -14,6 +14,8 @@ class ShowBookStudentViewController: UIViewController {
     @IBOutlet weak var informationView: UITextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    var otherBooksByAuthor: [Book] = []
+    var otherBookCovers: [UIImage] = []
     var currentBook: Book?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,5 +42,11 @@ class ShowBookStudentViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showBookPDFSegue"
+        {
+            let destVC = segue.destination as! ShowSelectedBookViewController
+            destVC.currentBook = currentBook
+        }
+    }
 }

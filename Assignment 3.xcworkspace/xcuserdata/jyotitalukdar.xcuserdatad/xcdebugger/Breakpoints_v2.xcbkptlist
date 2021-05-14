@@ -36,7 +36,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "D284D265-C3F7-4501-83E5-F0DF4AEB85E1 - 832fe31c9686e910"
+                  uuid = "D284D265-C3F7-4501-83E5-F0DF4AEB85E1 - 832fe31c9686e9ef"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment%203/ManageBooksTableViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68"
-                  offsetFromSymbolStart = "384">
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "360">
                </Location>
                <Location
-                  uuid = "D284D265-C3F7-4501-83E5-F0DF4AEB85E1 - d04bb6c744a6dbde"
+                  uuid = "D284D265-C3F7-4501-83E5-F0DF4AEB85E1 - d04bb6c744a6dbff"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,9 +61,9 @@
                   urlString = "file:///Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment%203/ManageBooksTableViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "208">
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "176">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "Assignment 3/ShowSelectedBookViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -356,7 +356,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "42F9B2F9-A100-429B-8476-7F3D72389DF7 - 52d1faa0b468375a"
+                  uuid = "42F9B2F9-A100-429B-8476-7F3D72389DF7 - 52d1faa0b4680b05"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -366,12 +366,12 @@
                   urlString = "file:///Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment%203/AddBookViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1652">
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "1588">
                </Location>
                <Location
-                  uuid = "42F9B2F9-A100-429B-8476-7F3D72389DF7 - 52d1faa0b468375a"
+                  uuid = "42F9B2F9-A100-429B-8476-7F3D72389DF7 - 52d1faa0b4680b05"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -381,12 +381,12 @@
                   urlString = "file:///Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment%203/AddBookViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1932">
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "1868">
                </Location>
                <Location
-                  uuid = "42F9B2F9-A100-429B-8476-7F3D72389DF7 - 4b0081a9088e5f78"
+                  uuid = "42F9B2F9-A100-429B-8476-7F3D72389DF7 - 4b0081a9088e6325"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -396,8 +396,8 @@
                   urlString = "file:///Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment%203/AddBookViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
+                  startingLineNumber = "198"
+                  endingLineNumber = "198"
                   offsetFromSymbolStart = "180">
                </Location>
             </Locations>
@@ -406,15 +406,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "38B65AE1-82F7-4B91-B463-B341ABC2CBD4"
+            uuid = "ACF7FE3C-2FB7-4192-AA2C-A92A000D01F3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assignment 3/BooksCollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EACE3327-C9C2-419F-8CBF-D2D925995CB5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment 3/MyViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -422,16 +438,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3F3FDBE4-BABC-4C51-855B-0E0E8431BBC1"
+            uuid = "B92D21F5-1C9A-4589-A697-3B7E7F9A609B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Assignment 3/MyViewController.swift"
+            filePath = "Assignment 3/ShowBookStudentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

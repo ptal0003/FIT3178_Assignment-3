@@ -7,6 +7,11 @@
 
 import UIKit
 
-class BookCollectionViewCell: CollectionViewCell {
+class BookCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var yearLabel: UILabel!
 }

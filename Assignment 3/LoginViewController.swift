@@ -50,7 +50,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "home_bg")
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
@@ -80,7 +79,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "booksByMeSegue"
         {
-            let destVC = segue.destination as! ManageBooksTableViewController
+            let destVC = segue.destination as! BooksCollectionViewController
             destVC.credentials = loggedCredential
             destVC.displayName = displayName
         }
