@@ -53,10 +53,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
            present(documentPicker, animated: true, completion: nil)
 
     }
-    @IBAction func saveBook(_ sender: Any) {
-        
-        addData(nameTextField.text ?? "", nameTextView.text ?? "")
-    }
+    
     lazy var database = {
         return Firestore.firestore()
     }()

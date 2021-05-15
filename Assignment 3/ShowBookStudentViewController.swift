@@ -6,12 +6,52 @@
 //
 
 import UIKit
+import CoreData
+import Firebase
+import PDFKit
 let sectionInsets1 = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return otherBooksByAuthor.count
     }
     
+    @IBAction func downloadBook(_ sender: Any) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        let context = appDelegate.persistentContainer.viewContext
+        let storageRef =  Storage.storage().reference(forURL: currentBook!.url)
+        let coverRef = Storage.storage().reference(forURL: currentBook!.coverURL)
+        storageRef.getData(maxSize: 25*1024*1024) { [self] data, error in
+            if let error = error {
+                print(error)
+            }
+            else if let data = data
+            {
+                        let book = NSEntityDescription.insertNewObject(forEntityName: "DownloadedBook", into: context) as! DownloadedBook
+                        book.name = self.currentBook!.name
+                        book.author = self.currentBook!.author
+                        book.url = self.currentBook!.url
+                        book.coverURL = self.currentBook!.coverURL
+                        book.coverPage = coverImage?.jpegData(compressionQuality: 1.0)
+                        book.pdfData = data
+                        do {
+                            try context.save()
+                        }
+                        catch{
+                            print(error)
+                        }
+                    
+                
+                
+            }
+            
+            //print the file listing to the console
+    
+        }
+        
+    }
     @IBOutlet weak var myCollectionView: UICollectionView!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "otherBooksCell", for: indexPath) as! OtherBooksCollectionViewCell
@@ -43,12 +83,14 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     var allBooks: [Book] = []
+
     var allCovers: [UIImage] = []
     var otherBooksByAuthor: [Book] = []
     var otherBookCovers: [UIImage] = []
     var currentBook: Book?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let currentBook = currentBook, let coverImage = coverImage{
             myCollectionView.delegate = self
             myCollectionView.dataSource = self

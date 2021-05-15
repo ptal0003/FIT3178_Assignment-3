@@ -79,7 +79,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "booksByMeSegue"
         {
-            let destVC = segue.destination as! BooksCollectionViewController
+            let destVC = segue.destination as! MyBooksProfessorViewController
             destVC.credentials = loggedCredential
             destVC.displayName = displayName
         }

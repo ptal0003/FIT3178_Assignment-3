@@ -10,7 +10,7 @@ import Firebase
 let itemsPerRow: CGFloat = 2
 let sectionInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
 
-class BooksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class MyBooksProfessorViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var displayName: String?
     var credentials: String?
     var coverImages: [UIImage] = []
@@ -24,7 +24,8 @@ class BooksCollectionViewController: UICollectionViewController, UICollectionVie
         super.viewDidLoad()
         let storageRef = Storage.storage().reference()
         if let credentials = credentials{
-            
+            collectionView.dataSource = self
+            collectionView.delegate = self
             database.collection("myCollection/\(credentials)/Books").getDocuments { snapshot, error in
                 if let error = error{
                     print(error)

@@ -32,26 +32,8 @@ class ShowSelectedBookViewController: UIViewController {
                 else if let data = data
                 {
                     pdfView.document = PDFDocument(data: data)
-                    var docURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)
-                    var fileURL = docURL[0].appendingPathComponent("myBook.pdf")
-                    
-                    do
-                    {   try data.write(to: fileURL as! URL, options: .atomic)
-                    }
-                    catch{
-                        print(error)
-                    }
                 }
-                let docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last) as! NSURL
                 
-
-                do {
-                    var c = try FileManager.default.contentsOfDirectory(atPath: (docURL.path!))
-                    print(c)
-                }
-                catch{
-                    print(error)
-                }
                 //print the file listing to the console
         
             }
@@ -59,11 +41,7 @@ class ShowSelectedBookViewController: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
-    
-    @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var informationView: UITextView!
+
     /*
     // MARK: - Navigation
 

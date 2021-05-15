@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class MyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
     var filteredBooks: [Book] = []
     var allBooks: [Book] = []
     var images: [UIImage] = []
@@ -24,7 +24,7 @@ class MyViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
+    @objc(updateSearchResultsForSearchController:) func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
            }
@@ -60,7 +60,15 @@ class MyViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         super.viewDidLoad()
         myTableView.delegate = self
         myTableView.dataSource = self
-        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search All Books"
+        navigationItem.searchController = searchController
+       
+        // This view controller decides how the search controller is presented
+        definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
         let storage = Storage.storage()
         let storageRef = storage.reference()
         // This view controller decides how the search controller is presented
