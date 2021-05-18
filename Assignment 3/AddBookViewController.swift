@@ -11,6 +11,9 @@ import FirebaseFirestore
 import UniformTypeIdentifiers
 import PDFKit
 class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
+    @IBAction func saveBook(_ sender: Any) {
+        addData(nameTextField.text!, instructionTextView.text)
+    }
     @IBOutlet weak var imageView: UIImageView!
     var credentials: String?
     var displayName: String?

@@ -34,7 +34,8 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
                         book.author = self.currentBook!.author
                         book.url = self.currentBook!.url
                         book.coverURL = self.currentBook!.coverURL
-                        book.coverPage = coverImage?.jpegData(compressionQuality: 1.0)
+                book.information = self.currentBook!.information
+                book.coverPage = self.currentBook?.coverImage.jpegData(compressionQuality: 0.8)
                         book.pdfData = data
                         do {
                             try context.save()
@@ -59,7 +60,8 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
         cell.imageView.layer.masksToBounds = true
         cell.imageView.contentMode = .scaleToFill
         cell.imageView.layer.borderWidth = 2
-        cell.imageView.image = otherBookCovers[indexPath.row]
+        cell.imageView.image = otherBooksByAuthor[indexPath.row].coverImage
+        cell.nameLabel.text = otherBooksByAuthor[indexPath.row].name
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -67,9 +69,10 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             let availableWidth = view.frame.width - paddingSpace
             let widthPerItem = availableWidth / itemsPerRow
             
-            return CGSize(width: widthPerItem, height: widthPerItem)
+            return CGSize(width: widthPerItem, height: 200)
         
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets1
     }
@@ -83,22 +86,19 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     var allBooks: [Book] = []
-
-    var allCovers: [UIImage] = []
     var otherBooksByAuthor: [Book] = []
-    var otherBookCovers: [UIImage] = []
     var currentBook: Book?
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let currentBook = currentBook, let coverImage = coverImage{
+        if let currentBook = currentBook{
             myCollectionView.delegate = self
             myCollectionView.dataSource = self
             imageView?.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
             imageView.layer.masksToBounds = true
             imageView.contentMode = .scaleToFill
             imageView.layer.borderWidth = 2
-            imageView.image = coverImage
+            imageView.image = currentBook.coverImage
             nameLabel.text = currentBook.name
             informationView.text = currentBook.information
             authorLabel.text = currentBook.author
@@ -127,26 +127,21 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
         {
             let destVC = segue.destination as! ShowBookStudentViewController
             destVC.allBooks = allBooks
-            destVC.allCovers = allCovers
-            destVC.otherBookCovers = []
             destVC.otherBooksByAuthor = []
             if let selectedRow = myCollectionView.indexPathsForSelectedItems?.first
             {
-                destVC.coverImage = otherBookCovers[selectedRow.row]
                 destVC.currentBook = otherBooksByAuthor[selectedRow.row]
                 for counter in 0...allBooks.count-1
                 {
                     if allBooks[counter].author == otherBooksByAuthor[selectedRow.row].author
                     {
                         destVC.otherBooksByAuthor.append(allBooks[counter])
-                        destVC.otherBookCovers.append(allCovers[counter])
                     }
                 }
             
                 let oldBookIndex = destVC.otherBooksByAuthor.firstIndex(of: otherBooksByAuthor[selectedRow.row])!
                 
                 destVC.otherBooksByAuthor.remove(at: oldBookIndex)
-                destVC.otherBookCovers.remove(at: oldBookIndex)
             
                 
             }

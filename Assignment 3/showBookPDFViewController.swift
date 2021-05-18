@@ -1,18 +1,17 @@
 //
-//  showSelectedBookViewController.swift
+//  showBookPDFViewController.swift
 //  Assignment 3
 //
-//  Created by Jyoti Talukdar on 07/05/21.
+//  Created by Jyoti Talukdar on 17/05/21.
 //
 
 import UIKit
 import PDFKit
-import Firebase
-class ShowSelectedBookViewController: UIViewController {
-    
-    var currentBook: Book?
+class showBookPDFViewController: UIViewController {
+    var selectedBook: DownloadedBook?
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = selectedBook?.name
         let pdfView = PDFView()
         pdfView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pdfView)
@@ -22,26 +21,13 @@ class ShowSelectedBookViewController: UIViewController {
         pdfView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         pdfView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         pdfView.autoScales = true
-        
-        if let currentBook = currentBook{
-            navigationItem.title = currentBook.name
-            let storageRef =  Storage.storage().reference(forURL: currentBook.url)
-            storageRef.getData(maxSize: 25*1024*1024) { data, error in
-                if let error = error {
-                    print(error)
-                }
-                else if let data = data
-                {
-                    pdfView.document = PDFDocument(data: data)
-                }
-                
-                //print the file listing to the console
-        
-            }
-            
+        if let selectedBook = selectedBook{
+            pdfView.document = PDFDocument(data: selectedBook.pdfData!)
         }
+        
         // Do any additional setup after loading the view.
     }
+    
 
     /*
     // MARK: - Navigation

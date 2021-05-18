@@ -20,8 +20,9 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
  
     var allBooks: [Book] = []
     
-    override func viewDidLoad() {
+        override func viewDidLoad() {
         super.viewDidLoad()
+            //navigationItem.hidesBackButton = true
         let storageRef = Storage.storage().reference()
         if let credentials = credentials{
             collectionView.dataSource = self
@@ -39,7 +40,7 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                             let information = data["Information"] as? String ?? ""
                             let author = data["author"] as? String ?? ""
                             let coverURL = data["coverURL"] as? String ?? ""
-                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL)
+                            
                         let imageRef = storageRef.child("cover/\(name)Cover")
                         imageRef.getData(maxSize: 1*1024*1024) { data, error in
                             if let error = error{
@@ -47,7 +48,7 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                             }
                             else if let data = data{
                                 let image = UIImage(data: data)
-                                self.coverImages.append(image!)
+                                let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
                                 self.allBooks.append(book)
                                 self.collectionView.reloadData()
 
@@ -72,20 +73,14 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
        
         // Do any additional setup after loading the view.
     }
+    /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-            let availableWidth = view.frame.width - paddingSpace
-            let widthPerItem = availableWidth / itemsPerRow
-            
-            return CGSize(width: widthPerItem, height: widthPerItem)
         
+            
+            return CGSize(width: 140, height: 200)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
-    }
+ */
+    
     /*
     // MARK: - Navigation
 
@@ -115,8 +110,9 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
         cell.imageView.layer.masksToBounds = true
         cell.imageView.contentMode = .scaleToFill
         cell.imageView.layer.borderWidth = 2
-        cell.imageView.image = coverImages[indexPath.row]
+        cell.imageView.image = allBooks[indexPath.row].coverImage
         cell.nameLabel.text = allBooks[indexPath.row].name
+        cell.authorLabel.text = allBooks[indexPath.row].author
         // Configure the cell
     
         return cell

@@ -24,8 +24,8 @@ class StudentDownloadsViewController: UIViewController,UITableViewDelegate, UITa
         cell.nameLabel.text = downloadedBooks[indexPath.row].name
         cell.authorLabel.text = downloadedBooks[indexPath.row].author
         cell.informationView.text = downloadedBooks[indexPath.row].information
-            cell.imageView?.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
-            cell.imageView?.layer.borderWidth = 2
+
+ 
             cell.imageView?.image = UIImage(data: downloadedBooks[indexPath.row].coverPage!)
            
             

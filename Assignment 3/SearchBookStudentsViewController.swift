@@ -7,68 +7,164 @@
 
 import UIKit
 import Firebase
-
+let CELL_BOOK = "bookCell"
+let REQUEST_STRING = "https://www.googleapis.com/books/v1/volumes?q="
 class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
     var filteredBooks: [Book] = []
+    var newBooks = [BookData]()
     var allBooks: [Book] = []
-    var images: [UIImage] = []
-
+    var downloadedBooks: [DownloadedBook]?
     var database = {
         return Firestore.firestore()
     }()
-    
+    let searchController = UISearchController(searchResultsController: nil)
+    var indicator = UIActivityIndicatorView()
    
     @IBOutlet weak var myTableView: UITableView!
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
+        if searchController.searchBar.selectedScopeButtonIndex == 1{
+            return newBooks.count
+        }
+        return filteredBooks.count
         
     }
-    
+    func requestBooksNamed(_ bookName: String){
+        guard let queryString = bookName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            print("Query string can't be encoded.")
+        return
+        }
+        guard let requestURL = URL(string: REQUEST_STRING + queryString) else { print("Invalid URL.")
+        return
+        }
+        let task = URLSession.shared.dataTask(with: requestURL) { (data, response, error) in
+            // This closure is executed on a different thread at a later point in
+        // time!
+            DispatchQueue.main.async { self.indicator.stopAnimating()
+            }
+            if let error = error { print(error)
+            return
+            }
+            do {
+            let decoder = JSONDecoder()
+            let volumeData = try decoder.decode(VolumeData.self, from: data!)
+            if let books = volumeData.books {
+                self.newBooks.append(contentsOf: books)
+            }
+                
+                DispatchQueue.main.async {
+                    self.myTableView.reloadData()
+                }
+            } catch let err {
+            print(err) }
+        }
+        task.resume()
+    }
     @objc(updateSearchResultsForSearchController:) func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
            }
-        if searchText.count > 0 {
-            filteredBooks = allBooks.filter({(book: Book) -> Bool in return (book.name.lowercased().contains(searchText)) || (book.information.lowercased().contains(searchText)) ||
-                (book.author.lowercased().contains(searchText))
-            })
-            myTableView.reloadData()
+        if searchController.searchBar.selectedScopeButtonIndex == 0
+        {
+            if searchText.count > 0 {
+                filteredBooks = allBooks.filter({(book: Book) -> Bool in return (book.name.lowercased().contains(searchText)) || (book.information.lowercased().contains(searchText)) ||
+                    (book.author.lowercased().contains(searchText))
+                })
+                myTableView.reloadData()
+            }
+            
         }
-       
+        else if searchController.searchBar.selectedScopeButtonIndex == 1{
+            newBooks.removeAll()
+            filteredBooks.removeAll()
+            myTableView.reloadData()
+            guard let searchText = searchController.searchBar.text?.lowercased() else {
+                return
+               }
+            indicator.startAnimating()
+            requestBooksNamed(searchText)
+            
+        }
+        else if searchController.searchBar.selectedScopeButtonIndex == 2{
+
+            if searchText.count > 0 {
+                var allBooksCopy: [Book] = []
+                if let downloadedBooks = downloadedBooks{
+                    for downloadedBook in downloadedBooks{
+                        let newBook = Book(bookName: downloadedBook.name!, information: downloadedBook.information!, url: downloadedBook.url!, author: downloadedBook.author!, coverURL: downloadedBook.coverURL!, coverImage: UIImage(data: downloadedBook.coverPage!)!)
+                        allBooksCopy.append(newBook)
+                    }
+                }
+                 filteredBooks = allBooksCopy.filter({(book: Book) -> Bool in return (book.name.lowercased().contains(searchText)) || (book.information.lowercased().contains(searchText)) ||
+                    (book.author.lowercased().contains(searchText))
+
+                })
+                myTableView.reloadData()
+            }
+        }
+        
         
         
         
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if searchController.searchBar.selectedScopeButtonIndex == 0 {
+            self.performSegue(withIdentifier: "alpha", sender: self)
+        }
+        if searchController.searchBar.selectedScopeButtonIndex == 2 {
+            self.performSegue(withIdentifier: "showBookPDF", sender: self)
+        }
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell") as! SearchBookTableViewCell
-        let image = UIImage(named: "icloud.and.arrow.down")
-        let imageView = UIImageView(image: image)
-        cell.accessoryView = imageView
-        cell.nameLabel.text = allBooks[indexPath.row].name
-        cell.authorLabel.text = allBooks[indexPath.row].author
-        cell.informationView.text = allBooks[indexPath.row].information
+        if searchController.searchBar.selectedScopeButtonIndex == 1{
+            cell.nameLabel.text = newBooks[indexPath.row].title
+            cell.authorLabel.text = newBooks[indexPath.row].authors
+            cell.yearLabel.text = newBooks[indexPath.row].publicationDate
+            if let imageURL = newBooks[indexPath.row].imageURL
+            {
+                let url = URL(string: imageURL)
+                
+                let dataTask = URLSession.shared.dataTask(with: url!) { [weak self] (data, _, _) in
+                        if let data = data {
+                            // Create Image and Update Image View
+                            cell.imageView!.image = UIImage(data: data)
+                        }
+                    }
+                dataTask.resume()
+            }
+           
+        }
+        cell.nameLabel.text = filteredBooks[indexPath.row].name
+        cell.authorLabel.text = filteredBooks[indexPath.row].author
+        cell.informationView.text = filteredBooks[indexPath.row].information
         cell.imageView?.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
         cell.imageView?.layer.masksToBounds = true
         cell.imageView?.contentMode = .scaleToFill
         cell.imageView?.layer.borderWidth = 2
-        cell.imageView?.image = images[indexPath.row]
+        cell.imageView?.image = filteredBooks[indexPath.row].coverImage
+        
         return cell
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myTableView.delegate = self
         myTableView.dataSource = self
-        let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search All Books"
+        searchController.searchBar.scopeButtonTitles = ["University","Google Books","Downloaded"]
         navigationItem.searchController = searchController
        
         // This view controller decides how the search controller is presented
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
         let storage = Storage.storage()
         let storageRef = storage.reference()
         // This view controller decides how the search controller is presented
@@ -86,7 +182,7 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                     let information = data["Information"] as? String ?? ""
                     let author = data["author"] as? String ?? ""
                     let coverURL = data["coverURL"] as? String ?? ""
-                    let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL)
+                    
                                         
                     let imageRef = storageRef.child("cover/\(name)Cover")
                     imageRef.getData(maxSize: 1*1024*1024) { data, error in
@@ -95,7 +191,7 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                         }
                         else if let data = data{
                             let image = UIImage(data: data)
-                            self.images.append(image!)
+                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
                             self.allBooks.append(book)
                             self.myTableView.reloadData()
                         }
@@ -124,30 +220,36 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
 
 }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showStudentBookSegue"
+        if segue.identifier == "alpha"
         {
             
             let destVC = segue.destination as! ShowBookStudentViewController
             if let selectedRow = myTableView.indexPathForSelectedRow?.row
             {
-                destVC.otherBookCovers = []
+               
                 destVC.otherBooksByAuthor = []
                 destVC.allBooks = allBooks
-                destVC.allCovers = images
-                destVC.coverImage = images[selectedRow]
-                destVC.currentBook = allBooks[selectedRow]
+                destVC.currentBook = filteredBooks[selectedRow]
                 for counter in 0...allBooks.count-1
                 {
-                    if allBooks[counter].author == allBooks[selectedRow].author
+                    if allBooks[counter].author == filteredBooks[selectedRow].author
                     {
                         destVC.otherBooksByAuthor.append(allBooks[counter])
-                        destVC.otherBookCovers.append(images[counter])
+                       
                     }
                 }
-                destVC.otherBooksByAuthor.remove(at: allBooks.firstIndex(of: allBooks[selectedRow])!)
-                destVC.otherBookCovers.remove(at: allBooks.firstIndex(of: allBooks[selectedRow])!)
+                destVC.otherBooksByAuthor.remove(at: allBooks.firstIndex(of: destVC.currentBook!)!)
+                
             }
             
+        }
+        if segue.identifier == "showBookPDF"
+        {
+            let destVC = segue.destination as! showBookPDFViewController
+            if let selectedRow = myTableView.indexPathForSelectedRow?.row
+            {
+                destVC.selectedBook = downloadedBooks![selectedRow]
+            }
         }
     }
 }
