@@ -40,8 +40,24 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                             let information = data["Information"] as? String ?? ""
                             let author = data["author"] as? String ?? ""
                             let coverURL = data["coverURL"] as? String ?? ""
-                            
-                        let imageRef = storageRef.child("cover/\(name)Cover")
+                        let urlCover = URL(string: coverURL)
+                        let downloadTask = URLSession.shared.dataTask(with: urlCover!) { data, response, error in
+                            if let error = error{
+                                print(error)
+                            }
+                            else if let data = data{
+                                let image = UIImage(data: data)
+                                let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
+                                self.allBooks.append(book)
+                                DispatchQueue.main.async {
+                                    self.collectionView.reloadData()
+                                }
+                               
+
+                            }
+                        }
+                        downloadTask.resume()
+                        /*let imageRef = storageRef.child("cover/\(name)Cover")
                         imageRef.getData(maxSize: 1*1024*1024) { data, error in
                             if let error = error{
                                 print(error)
@@ -53,7 +69,7 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                                 self.collectionView.reloadData()
 
                             }
-                        }
+                        }*/
                             
                             
                     }

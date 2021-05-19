@@ -74,16 +74,8 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
             nameTextField.text = currentBook.name
             instructionTextView.text = currentBook.information
             navigationItem.title = currentBook.name
+            imageView.image = currentBook.coverImage
             
-            let imageRef = storageRef.child("cover/\(currentBook.name)Cover")
-            imageRef.getData(maxSize: 1024*1024) { data, error in
-                if let error = error{
-                    print(error)
-                }
-                else if let data = data{
-                    self.imageView.image = UIImage(data: data)
-                }
-            }
             
         }
         // Do any additional setup after loading the view.
@@ -161,7 +153,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                 bookRef.document(currentBook.name).delete()
                 bookRef.document(newBook["Name"]!!).setData(newBook)
                 userRef.document(credentials).collection("Books").document(currentBook.name).delete()
-                userRef.document(credentials).collection("Books").document(currentBook.name).setData(newBook)
+                userRef.document(credentials).collection("Books").document(newBook["Name"]!!).setData(newBook)
                 
             }
         }

@@ -50,7 +50,7 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
             if let books = volumeData.books {
                 self.newBooks.append(contentsOf: books)
             }
-                
+        
                 DispatchQueue.main.async {
                     self.myTableView.reloadData()
                 }
@@ -121,28 +121,41 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
             cell.nameLabel.text = newBooks[indexPath.row].title
             cell.authorLabel.text = newBooks[indexPath.row].authors
             cell.yearLabel.text = newBooks[indexPath.row].publicationDate
-            if let imageURL = newBooks[indexPath.row].imageURL
+            //cell.customImageView.image = UIImage(named: "defaultBookImage")
+            cell.informationView.text = newBooks[indexPath.row].bookDescription
+            if var imageURL = newBooks[indexPath.row].imageURL
             {
-                let url = URL(string: imageURL)
+                imageURL = imageURL.replacingOccurrences(of: "http:", with: "https:")
+                let url = URL(string: imageURL)!
                 
-                let dataTask = URLSession.shared.dataTask(with: url!) { [weak self] (data, _, _) in
-                        if let data = data {
-                            // Create Image and Update Image View
-                            cell.imageView!.image = UIImage(data: data)
+                let downloadTask = URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let error = error{
+                        print(error)
+                    }
+                    if let response = response
+                    {
+                        print(response)
+                    }
+                    if let data = data{
+                        DispatchQueue.main.async {
+                            cell.customImageView.image = UIImage(data: data)
                         }
                     }
-                dataTask.resume()
+                }
+                downloadTask.resume()
+            }
+            return cell
             }
            
-        }
+        
         cell.nameLabel.text = filteredBooks[indexPath.row].name
         cell.authorLabel.text = filteredBooks[indexPath.row].author
         cell.informationView.text = filteredBooks[indexPath.row].information
-        cell.imageView?.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
-        cell.imageView?.layer.masksToBounds = true
-        cell.imageView?.contentMode = .scaleToFill
-        cell.imageView?.layer.borderWidth = 2
-        cell.imageView?.image = filteredBooks[indexPath.row].coverImage
+        cell.customImageView.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
+        cell.customImageView.layer.masksToBounds = true
+        cell.customImageView.contentMode = .scaleToFill
+        cell.customImageView.layer.borderWidth = 2
+        cell.customImageView.image = filteredBooks[indexPath.row].coverImage
         
         return cell
     }
@@ -182,20 +195,23 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                     let information = data["Information"] as? String ?? ""
                     let author = data["author"] as? String ?? ""
                     let coverURL = data["coverURL"] as? String ?? ""
-                    
-                                        
-                    let imageRef = storageRef.child("cover/\(name)Cover")
-                    imageRef.getData(maxSize: 1*1024*1024) { data, error in
+                    let myURL = URL(string: coverURL)
+                    let downloadTask = URLSession.shared.dataTask(with: myURL!) { data, response, error in
                         if let error = error{
                             print(error)
+                            return
                         }
-                        else if let data = data{
+                        if let data = data{
                             let image = UIImage(data: data)
                             let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
                             self.allBooks.append(book)
-                            self.myTableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.myTableView.reloadData()
+                            }
                         }
                     }
+                    downloadTask.resume()
+                    
                     
                 }
                 

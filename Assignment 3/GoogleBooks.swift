@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 class VolumeData: NSObject, Decodable
 {
     
@@ -44,7 +44,7 @@ class BookData: NSObject, Decodable{
             
         }
         imageURL = try imageContainer?.decode(String.self, forKey: .smallThumbnail)
-    }
+            }
     var isbn13: String?
     var title: String
     var authors: String?
@@ -52,6 +52,7 @@ class BookData: NSObject, Decodable{
     var publicationDate: String?
     var bookDescription: String?
     var imageURL: String?
+    var image: UIImage?
     private enum RootKeys: String, CodingKey {
         case volumeInfo
     
