@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 let CELL_BOOK = "bookCell"
 let REQUEST_STRING = "https://www.googleapis.com/books/v1/volumes?q="
-class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
+class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating{
     var filteredBooks: [Book] = []
     var newBooks = [BookData]()
     var allBooks: [Book] = []
@@ -106,6 +106,7 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
         
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if searchController.searchBar.selectedScopeButtonIndex == 0 {
             self.performSegue(withIdentifier: "alpha", sender: self)

@@ -12,6 +12,7 @@ import UniformTypeIdentifiers
 import PDFKit
 class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     @IBAction func saveBook(_ sender: Any) {
+        indicator.startAnimating()
         addData(nameTextField.text!, instructionTextView.text)
     }
     @IBOutlet weak var imageView: UIImageView!
@@ -60,8 +61,15 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     lazy var database = {
         return Firestore.firestore()
     }()
+    var indicator = UIActivityIndicatorView()
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
+
         imageView.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
               imageView.layer.masksToBounds = true
               imageView.contentMode = .scaleToFill
@@ -142,7 +150,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                             }
                         }
                         
-                        
+                        self.indicator.stopAnimating()
                         print("Successfully Uploaded")
                     }
                 }
@@ -154,6 +162,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                 bookRef.document(newBook["Name"]!!).setData(newBook)
                 userRef.document(credentials).collection("Books").document(currentBook.name).delete()
                 userRef.document(credentials).collection("Books").document(newBook["Name"]!!).setData(newBook)
+                indicator.stopAnimating()
                 
             }
         }
@@ -192,6 +201,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                                     }
                                     else
                                     {
+                                        self.indicator.stopAnimating()
                                         coverStorageRef.downloadURL { url, error in
                                             let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName, "coverURL": url?.absoluteString]
                                             self.database.collection("books").document(bookName).setData(newBook)
@@ -228,6 +238,9 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    override func viewWillAppear(_ animated: Bool) {
+        viewDidLoad()
+    }
 
 }
 

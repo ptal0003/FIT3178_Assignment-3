@@ -91,7 +91,6 @@
         <!--Search Book Students View Controller-->
         <scene sceneID="1gL-iX-axz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OfS-y4-mVJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="awY-2l-fAY" customClass="SearchBookStudentsViewController" customModule="Assignment_3" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ro7-Pd-8OR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -181,6 +180,7 @@
                         <segue destination="CgV-yX-yc6" kind="show" identifier="alpha" id="fC0-pq-Tc2"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OfS-y4-mVJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1700" y="929"/>
         </scene>
@@ -647,11 +647,58 @@
                         <viewLayoutGuide key="safeArea" id="avZ-cz-C3V"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZMe-B4-dTY"/>
+                    <navigationItem key="navigationItem" id="ZMe-B4-dTY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="gfS-Lv-3Or">
+                            <connections>
+                                <action selector="findME:" destination="yfm-Hm-UCU" id="zHt-UT-N0T"/>
+                                <segue destination="m44-dP-slZ" kind="show" identifier="searchInsideBookSegue" id="sQZ-G4-nMg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fme-pa-MoR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1729" y="1707"/>
+        </scene>
+        <!--Search Words Table View Controller-->
+        <scene sceneID="DAt-Fh-Rfs">
+            <objects>
+                <tableViewController id="m44-dP-slZ" customClass="SearchWordsTableViewController" customModule="Assignment_3" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DJa-nz-Dvd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="wordCell" id="EyW-0r-s73">
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EyW-0r-s73" id="A0u-VZ-1vA">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="infoCell" id="8Ku-Ka-Qug">
+                                <rect key="frame" x="0.0" y="68" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ku-Ka-Qug" id="OX2-VV-9dB">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="m44-dP-slZ" id="jaS-2E-Slp"/>
+                            <outlet property="delegate" destination="m44-dP-slZ" id="3Wl-0Q-aTE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="SRF-Og-gKJ"/>
+                    <connections>
+                        <outlet property="myTableView" destination="DJa-nz-Dvd" id="ouy-hc-tTQ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VcC-UM-quT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2494" y="1707"/>
         </scene>
         <!--Saved Books-->
         <scene sceneID="ut3-Aa-qzD">

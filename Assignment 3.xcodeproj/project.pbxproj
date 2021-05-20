@@ -31,6 +31,8 @@
 		0D424CD92650179A00EA7531 /* ShowSelectedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CD82650179A00EA7531 /* ShowSelectedBookViewController.swift */; };
 		0D424CE2265026FD00EA7531 /* DownloadedBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CE1265026FC00EA7531 /* DownloadedBook+CoreDataProperties.swift */; };
 		0D424CE62650270900EA7531 /* DownloadedBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CE52650270900EA7531 /* DownloadedBook+CoreDataClass.swift */; };
+		0D4CDA4F2656D1FA00942577 /* SearchWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */; };
+		0D58E1992656CAAC009283EE /* SearchWordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */; };
 		0D6384D1264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D6384CF264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld */; };
 		0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */; };
 		0D7BDBBB264CEFCD00A08C39 /* SearchBookStudentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBBA264CEFCD00A08C39 /* SearchBookStudentsViewController.swift */; };
@@ -85,7 +87,9 @@
 		0D424CD82650179A00EA7531 /* ShowSelectedBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSelectedBookViewController.swift; sourceTree = "<group>"; };
 		0D424CE1265026FC00EA7531 /* DownloadedBook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadedBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0D424CE52650270900EA7531 /* DownloadedBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DownloadedBook+CoreDataClass.swift"; path = "../../DownloadedBook+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWordDelegate.swift; sourceTree = "<group>"; };
 		0D5748E926384BB400BA0200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Assignment 3/Info.plist"; sourceTree = "<group>"; };
+		0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWordsTableViewController.swift; sourceTree = "<group>"; };
 		0D6384D0264FAB09008EE588 /* BookDownloadDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookDownloadDataModel.xcdatamodel; sourceTree = "<group>"; };
 		0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookTableViewCell.swift; sourceTree = "<group>"; };
 		0D7BDBBA264CEFCD00A08C39 /* SearchBookStudentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookStudentsViewController.swift; sourceTree = "<group>"; };
@@ -152,9 +156,11 @@
 				0D424CDB26501EEC00EA7531 /* Core Data */,
 				0D424CDA26501E6400EA7531 /* Cell Classes */,
 				0D07D721263585CB0010AB82 /* Book.swift */,
+				0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */,
 				0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */,
 				0D424CD82650179A00EA7531 /* ShowSelectedBookViewController.swift */,
 				0D2F83FE2653AAC100171970 /* GoogleBooks.swift */,
+				0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */,
 				0D2F83FC2652B3C900171970 /* showBookPDFViewController.swift */,
 				0D8504E1265240F800A55838 /* ShowDownloadedBookViewController.swift */,
 				0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */,
@@ -427,7 +433,9 @@
 				0D424CE2265026FD00EA7531 /* DownloadedBook+CoreDataProperties.swift in Sources */,
 				0D0FC2D326356941002BECC3 /* AppDelegate.swift in Sources */,
 				0D3548C6264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift in Sources */,
+				0D4CDA4F2656D1FA00942577 /* SearchWordDelegate.swift in Sources */,
 				0D1518F02650F5D5008B96C1 /* DownloadsViewController.swift in Sources */,
+				0D58E1992656CAAC009283EE /* SearchWordsTableViewController.swift in Sources */,
 				0D0FC2D526356941002BECC3 /* SceneDelegate.swift in Sources */,
 				0D3548C4264DCE2100AA2613 /* MyBooksProfessorViewController.swift in Sources */,
 				0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */,

@@ -19,10 +19,14 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
     }()
  
     var allBooks: [Book] = []
-    
+    var indicator =  UIActivityIndicatorView()
         override func viewDidLoad() {
         super.viewDidLoad()
             //navigationItem.hidesBackButton = true
+            indicator.style = UIActivityIndicatorView.Style.large
+            indicator.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(indicator)
+            NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
         let storageRef = Storage.storage().reference()
         if let credentials = credentials{
             collectionView.dataSource = self
@@ -108,7 +112,38 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
     */
 
     // MARK: UICollectionViewDataSource
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let delete = UIAction(title: "Delete from Library", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                self.indicator.startAnimating()
+                let userRef = self.database.collection("myCollection")
+                userRef.document(self.credentials!).collection("Books").document(self.allBooks[indexPath.row].name).delete{ error in
+                        if let error = error{
+                            print(error)
+                        }
+                        else{
+                            let bookRef = self.database.collection("books")
+                            bookRef.document(self.allBooks[indexPath.row].name).delete { error in
+                                if let error = error{
+                                    print(error)
+                                }
+                                else{
+                                    self.indicator.stopAnimating()
+                                    self.allBooks.remove(at: indexPath.row)
+                                    self.collectionView.reloadData()
+                                    print("Successfully Deleted")
+                                }
+                            }
+                            
+                        }
+                    }
+                
+            }
+               return UIMenu(title: "", children: [delete])
+           }
 
+    }
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
