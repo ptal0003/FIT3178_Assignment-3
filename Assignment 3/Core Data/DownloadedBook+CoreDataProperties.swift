@@ -2,7 +2,7 @@
 //  DownloadedBook+CoreDataProperties.swift
 //  
 //
-//  Created by Jyoti Talukdar on 15/05/21.
+//  Created by Jyoti Talukdar on 22/05/21.
 //
 //
 
@@ -17,11 +17,14 @@ extension DownloadedBook {
     }
 
     @NSManaged public var author: String?
+    @NSManaged public var coverPage: Data?
     @NSManaged public var coverURL: String?
     @NSManaged public var information: String?
     @NSManaged public var name: String?
-    @NSManaged public var url: String?
-    @NSManaged public var coverPage: Data?
     @NSManaged public var pdfData: Data?
+    @NSManaged public var url: String?
+    @NSManaged public var user: String?
+    @NSManaged public var year: String?
+    @NSManaged public var edition: String?
 
 }
