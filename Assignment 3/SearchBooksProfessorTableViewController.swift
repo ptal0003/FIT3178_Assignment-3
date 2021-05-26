@@ -18,6 +18,8 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
         else if searchController.searchBar.selectedScopeButtonIndex == 1
         {
             if searchText.count > 0{
+                indicator.startAnimating()
+                newBooks = []
                 requestBooksNamed(searchText)
             }
         }
@@ -50,7 +52,6 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
             if let books = volumeData.books {
                 self.newBooks.append(contentsOf: books)
             }
-        
                 DispatchQueue.main.async {
                     self.myTableView.reloadData()
                 }
@@ -82,7 +83,13 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
-       
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor), indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
+        
+        
         let storage = Storage.storage()
         let storageRef = storage.reference()
         // This view controller decides how the search controller is presented
