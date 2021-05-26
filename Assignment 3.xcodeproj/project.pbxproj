@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D025F19265C49B6005C3980 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D025F18265C49B6005C3980 /* HeaderCollectionReusableView.swift */; };
 		0D03E2AD263AAD8600ECB88E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */; };
 		0D07D722263585CB0010AB82 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07D721263585CB0010AB82 /* Book.swift */; };
 		0D07D72C263586C10010AB82 /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07D72B263586C10010AB82 /* AddBookViewController.swift */; };
@@ -25,12 +26,14 @@
 		0D3548C2264DCC4600AA2613 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */; };
 		0D3548C4264DCE2100AA2613 /* MyBooksProfessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548C3264DCE2100AA2613 /* MyBooksProfessorViewController.swift */; };
 		0D3548C6264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3548C5264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift */; };
+		0D3816462658F596004C19E7 /* SearchBooksProfessorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3816452658F596004C19E7 /* SearchBooksProfessorTableViewController.swift */; };
+		0D38164826591CB7004C19E7 /* DownloadedBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D38164726591CB7004C19E7 /* DownloadedBook+CoreDataProperties.swift */; };
+		0D38164C26591D14004C19E7 /* DownloadedBook+CoreDataClass.swift 16-34-34-990.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D38164B26591D11004C19E7 /* DownloadedBook+CoreDataClass.swift 16-34-34-990.swift */; };
+		0D38164E2659371E004C19E7 /* ProfessorDownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D38164D2659371E004C19E7 /* ProfessorDownloadsViewController.swift */; };
 		0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3C8251263B276B007CB332 /* LoginViewController.swift */; };
 		0D424CD5264FDD6A00EA7531 /* DownloadBooksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CD4264FDD6A00EA7531 /* DownloadBooksTableViewCell.swift */; };
 		0D424CD7264FE1C400EA7531 /* StudentDownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CD6264FE1C400EA7531 /* StudentDownloadsViewController.swift */; };
 		0D424CD92650179A00EA7531 /* ShowSelectedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CD82650179A00EA7531 /* ShowSelectedBookViewController.swift */; };
-		0D424CE2265026FD00EA7531 /* DownloadedBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CE1265026FC00EA7531 /* DownloadedBook+CoreDataProperties.swift */; };
-		0D424CE62650270900EA7531 /* DownloadedBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D424CE52650270900EA7531 /* DownloadedBook+CoreDataClass.swift */; };
 		0D4CDA4F2656D1FA00942577 /* SearchWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */; };
 		0D58E1992656CAAC009283EE /* SearchWordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */; };
 		0D6384D1264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D6384CF264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld */; };
@@ -58,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D025F18265C49B6005C3980 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D07D721263585CB0010AB82 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		0D07D72B263586C10010AB82 /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
@@ -81,12 +85,14 @@
 		0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		0D3548C3264DCE2100AA2613 /* MyBooksProfessorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBooksProfessorViewController.swift; sourceTree = "<group>"; };
 		0D3548C5264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherBooksCollectionViewCell.swift; sourceTree = "<group>"; };
+		0D3816452658F596004C19E7 /* SearchBooksProfessorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksProfessorTableViewController.swift; sourceTree = "<group>"; };
+		0D38164726591CB7004C19E7 /* DownloadedBook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadedBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0D38164B26591D11004C19E7 /* DownloadedBook+CoreDataClass.swift 16-34-34-990.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadedBook+CoreDataClass.swift 16-34-34-990.swift"; sourceTree = "<group>"; };
+		0D38164D2659371E004C19E7 /* ProfessorDownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessorDownloadsViewController.swift; sourceTree = "<group>"; };
 		0D3C8251263B276B007CB332 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0D424CD4264FDD6A00EA7531 /* DownloadBooksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadBooksTableViewCell.swift; sourceTree = "<group>"; };
 		0D424CD6264FE1C400EA7531 /* StudentDownloadsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDownloadsViewController.swift; sourceTree = "<group>"; };
 		0D424CD82650179A00EA7531 /* ShowSelectedBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSelectedBookViewController.swift; sourceTree = "<group>"; };
-		0D424CE1265026FC00EA7531 /* DownloadedBook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadedBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		0D424CE52650270900EA7531 /* DownloadedBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DownloadedBook+CoreDataClass.swift"; path = "../../DownloadedBook+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWordDelegate.swift; sourceTree = "<group>"; };
 		0D5748E926384BB400BA0200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Assignment 3/Info.plist"; sourceTree = "<group>"; };
 		0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWordsTableViewController.swift; sourceTree = "<group>"; };
@@ -156,11 +162,13 @@
 				0D424CDB26501EEC00EA7531 /* Core Data */,
 				0D424CDA26501E6400EA7531 /* Cell Classes */,
 				0D07D721263585CB0010AB82 /* Book.swift */,
+				0D38164D2659371E004C19E7 /* ProfessorDownloadsViewController.swift */,
 				0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */,
 				0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */,
 				0D424CD82650179A00EA7531 /* ShowSelectedBookViewController.swift */,
 				0D2F83FE2653AAC100171970 /* GoogleBooks.swift */,
 				0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */,
+				0D3816452658F596004C19E7 /* SearchBooksProfessorTableViewController.swift */,
 				0D2F83FC2652B3C900171970 /* showBookPDFViewController.swift */,
 				0D8504E1265240F800A55838 /* ShowDownloadedBookViewController.swift */,
 				0D3548BC264D890700AA2613 /* ShowBookStudentViewController.swift */,
@@ -200,6 +208,7 @@
 				0D3548C5264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift */,
 				0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */,
 				0D424CD4264FDD6A00EA7531 /* DownloadBooksTableViewCell.swift */,
+				0D025F18265C49B6005C3980 /* HeaderCollectionReusableView.swift */,
 				0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */,
 				0D1518ED2650F260008B96C1 /* DownloadsCollectionViewCell.swift */,
 			);
@@ -209,8 +218,8 @@
 		0D424CDB26501EEC00EA7531 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				0D424CE52650270900EA7531 /* DownloadedBook+CoreDataClass.swift */,
-				0D424CE1265026FC00EA7531 /* DownloadedBook+CoreDataProperties.swift */,
+				0D38164B26591D11004C19E7 /* DownloadedBook+CoreDataClass.swift 16-34-34-990.swift */,
+				0D38164726591CB7004C19E7 /* DownloadedBook+CoreDataProperties.swift */,
 				0D6384CF264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -418,11 +427,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D1518EE2650F260008B96C1 /* DownloadsCollectionViewCell.swift in Sources */,
+				0D38164C26591D14004C19E7 /* DownloadedBook+CoreDataClass.swift 16-34-34-990.swift in Sources */,
 				0D3C8252263B276B007CB332 /* LoginViewController.swift in Sources */,
 				0D3548BD264D890700AA2613 /* ShowBookStudentViewController.swift in Sources */,
 				0D3548C2264DCC4600AA2613 /* BookCollectionViewCell.swift in Sources */,
 				0D424CD92650179A00EA7531 /* ShowSelectedBookViewController.swift in Sources */,
 				0D8504E2265240F800A55838 /* ShowDownloadedBookViewController.swift in Sources */,
+				0D3816462658F596004C19E7 /* SearchBooksProfessorTableViewController.swift in Sources */,
 				0D2F83FD2652B3C900171970 /* showBookPDFViewController.swift in Sources */,
 				0D424CD7264FE1C400EA7531 /* StudentDownloadsViewController.swift in Sources */,
 				0D07D722263585CB0010AB82 /* Book.swift in Sources */,
@@ -430,17 +441,18 @@
 				0D07D72C263586C10010AB82 /* AddBookViewController.swift in Sources */,
 				0D2F83FF2653AAC100171970 /* GoogleBooks.swift in Sources */,
 				0D6384D1264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld in Sources */,
-				0D424CE2265026FD00EA7531 /* DownloadedBook+CoreDataProperties.swift in Sources */,
 				0D0FC2D326356941002BECC3 /* AppDelegate.swift in Sources */,
 				0D3548C6264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift in Sources */,
 				0D4CDA4F2656D1FA00942577 /* SearchWordDelegate.swift in Sources */,
+				0D38164826591CB7004C19E7 /* DownloadedBook+CoreDataProperties.swift in Sources */,
+				0D025F19265C49B6005C3980 /* HeaderCollectionReusableView.swift in Sources */,
 				0D1518F02650F5D5008B96C1 /* DownloadsViewController.swift in Sources */,
 				0D58E1992656CAAC009283EE /* SearchWordsTableViewController.swift in Sources */,
 				0D0FC2D526356941002BECC3 /* SceneDelegate.swift in Sources */,
 				0D3548C4264DCE2100AA2613 /* MyBooksProfessorViewController.swift in Sources */,
 				0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */,
+				0D38164E2659371E004C19E7 /* ProfessorDownloadsViewController.swift in Sources */,
 				0D7BDBBB264CEFCD00A08C39 /* SearchBookStudentsViewController.swift in Sources */,
-				0D424CE62650270900EA7531 /* DownloadedBook+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

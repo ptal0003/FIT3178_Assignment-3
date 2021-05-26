@@ -7,23 +7,69 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
+    var user: String?
     var window: UIWindow?
-
-
+    var selectedBook: DownloadedBook?
+    let CATEGORY_IDENTIFIER = "edu.monash.fit3178.Workshop10.democategory"
+    var notificationsEnabled = false
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, error in
+            if granted {
+                self.notificationsEnabled = granted
+                UNUserNotificationCenter.current().delegate = self
+                
+                
+                let acceptAction = UNNotificationAction(identifier: "accept", title: "Accept", options: .foreground)
+                let declineAction = UNNotificationAction(identifier: "decline", title: "Decline", options: .destructive)
+                let commentAction = UNTextInputNotificationAction(identifier: "comment", title: "Comment", options: .authenticationRequired, textInputButtonTitle: "Send", textInputPlaceholder: "Share your thoughts..")
+                
+                // Set up the category
+                let appCategory = UNNotificationCategory(identifier: self.CATEGORY_IDENTIFIER, actions: [acceptAction, declineAction, commentAction], intentIdentifiers: [], options: UNNotificationCategoryOptions(rawValue: 0))
+                
+                // Register the category just created with the notification centre
+                UNUserNotificationCenter.current().setNotificationCategories([appCategory])
+            }
+        }
     }
-
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        
+        let navigationController = self.window?.rootViewController as? UINavigationController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let VC = storyboard.instantiateViewController(identifier: "ViewPDF") as! showBookPDFViewController
+            
+        if let selectedBook = self.selectedBook{
+            VC.selectedBook = selectedBook
+            
+        }
+        
+        navigationController?.pushViewController(VC, animated: true)
+        
+        completionHandler()
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    }
+    //Gets called when the notification is presented, it's called as soon as the notification is displayed
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Notification arrived")
+        
+        let navigationController = self.window?.rootViewController as? UINavigationController
+        if let savedBooksViewController = navigationController?.viewControllers[1] as? DownloadsViewController
+        {
+            savedBooksViewController.updateMyData()
+        }
+        
+        completionHandler(.alert)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

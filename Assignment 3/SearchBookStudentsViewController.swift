@@ -255,7 +255,9 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                        
                     }
                 }
-                destVC.otherBooksByAuthor.remove(at: allBooks.firstIndex(of: destVC.currentBook!)!)
+                
+                destVC.otherBooksByAuthor.remove(at: destVC.otherBooksByAuthor.firstIndex(of: destVC.currentBook!)!)
+                
                 
             }
             

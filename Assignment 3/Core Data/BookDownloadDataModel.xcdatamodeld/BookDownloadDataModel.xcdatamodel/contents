@@ -4,12 +4,15 @@
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="coverPage" optional="YES" attributeType="Binary"/>
         <attribute name="coverURL" optional="YES" attributeType="String"/>
+        <attribute name="edition" optional="YES" attributeType="String"/>
         <attribute name="information" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="pdfData" optional="YES" attributeType="Binary"/>
         <attribute name="url" optional="YES" attributeType="String"/>
+        <attribute name="user" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="DownloadedBook" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="DownloadedBook" positionX="-63" positionY="-18" width="128" height="179"/>
     </elements>
 </model>

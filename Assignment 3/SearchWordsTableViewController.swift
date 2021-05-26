@@ -24,6 +24,7 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
     var matchingSelections: [PDFSelection]?
     override func viewDidLoad() {
         super.viewDidLoad()
+            
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search the Document"
@@ -62,8 +63,33 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
         if indexPath.section == 0{
             if let matchingSelections = matchingSelections{
                 cell.textLabel!.text = "Page " + matchingSelections[indexPath.row].pages[0].label!
+                let matchContext = matchingSelections[indexPath.row].copy() as! PDFSelection
+                var myString: String
+                var counter = 0
+                while counter < 5 {
+                    matchContext.extend(atStart: 1)
+                    if let myString = matchContext.string{
+                        
+                        if myString.first == " "
+                        {
+                           counter = counter + 1
+                        }
+                    }
+                }
+                var myString1: String
+                counter = 0
                 
-            
+                while counter < 1 {
+                    matchContext.extend(atEnd: 1)
+                    if let myString = matchContext.string{
+                        
+                        if myString.last == "!" || myString.last == "."
+                        {
+                           counter = counter + 1
+                        }
+                    }
+                }
+                cell.detailTextLabel?.text = matchContext.string
             }
         }
         // Configure the cell...

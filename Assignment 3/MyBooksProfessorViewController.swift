@@ -11,39 +11,72 @@ let itemsPerRow: CGFloat = 2
 let sectionInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
 
 class MyBooksProfessorViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
     var displayName: String?
     var credentials: String?
     var coverImages: [UIImage] = []
     var database = {
         return Firestore.firestore()
     }()
- 
+    func displayMessage(_ title: String,_ message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { (_) in
+                  
+                }))
+        self.present(alert, animated: true, completion: {
+                    
+                })
+    }
     var allBooks: [Book] = []
     var indicator =  UIActivityIndicatorView()
-        override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-            //navigationItem.hidesBackButton = true
-            indicator.style = UIActivityIndicatorView.Style.large
-            indicator.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addSubview(indicator)
-            NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
+        //navigationItem.hidesBackButton = true
+        let addAction = UIAction(title: "Add Book", image: UIImage(systemName: "plus")) { action in
+            self.performSegue(withIdentifier: "addBooksSegue", sender: self)
+        }
+        let searchAction = UIAction(title: "Search", image: UIImage(systemName: "magnifyingglass")) { action in
+            self.performSegue(withIdentifier: "searchBookSegue", sender: self)
+        }
+        let downloadsAction = UIAction(title: "Downloads", image: UIImage(systemName: "square.and.arrow.down")) { action in
+            self.performSegue(withIdentifier: "downloadedBooksProfessor", sender: self)
+        }
+        barButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: .destructive, children: [addAction, searchAction, downloadsAction])
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
+        collectionView.dataSource = self
+        collectionView.delegate = self
         let storageRef = Storage.storage().reference()
+        updateData()
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Register cell classes
+        
+        // Do any additional setup after loading the view.
+    }
+    func updateData()
+    {
+        allBooks = []
         if let credentials = credentials{
-            collectionView.dataSource = self
-            collectionView.delegate = self
             database.collection("myCollection/\(credentials)/Books").getDocuments { snapshot, error in
                 if let error = error{
-                    print(error)
+                    self.displayMessage("Error",error.localizedDescription + " kindly contact the developer for more information on this.")
+                    return
                 }
-                else{
+                else
+                {
                     for document in snapshot!.documents
                     {
-                            let data = document.data()
-                            let name = data["Name"] as? String ?? ""
-                            let url = data["URL"] as? String ?? ""
-                            let information = data["Information"] as? String ?? ""
-                            let author = data["author"] as? String ?? ""
-                            let coverURL = data["coverURL"] as? String ?? ""
+                        let data = document.data()
+                        let name = data["Name"] as? String ?? ""
+                        let url = data["URL"] as? String ?? ""
+                        let information = data["Information"] as? String ?? ""
+                        let author = data["author"] as? String ?? ""
+                        let coverURL = data["coverURL"] as? String ?? ""
                         let urlCover = URL(string: coverURL)
                         let downloadTask = URLSession.shared.dataTask(with: urlCover!) { data, response, error in
                             if let error = error{
@@ -56,61 +89,19 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                                 DispatchQueue.main.async {
                                     self.collectionView.reloadData()
                                 }
-                               
-
                             }
                         }
                         downloadTask.resume()
-                        /*let imageRef = storageRef.child("cover/\(name)Cover")
-                        imageRef.getData(maxSize: 1*1024*1024) { data, error in
-                            if let error = error{
-                                print(error)
-                            }
-                            else if let data = data{
-                                let image = UIImage(data: data)
-                                let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
-                                self.allBooks.append(book)
-                                self.collectionView.reloadData()
-
-                            }
-                        }*/
-                            
-                            
                     }
-                    
-                    
                 }
                 
             }
-           
-           
-            
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-       
-        // Do any additional setup after loading the view.
     }
-    /*
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-            
-            return CGSize(width: 140, height: 200)
-    }
- */
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     
+    
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         
@@ -119,30 +110,30 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                 self.indicator.startAnimating()
                 let userRef = self.database.collection("myCollection")
                 userRef.document(self.credentials!).collection("Books").document(self.allBooks[indexPath.row].name).delete{ error in
-                        if let error = error{
-                            print(error)
-                        }
-                        else{
-                            let bookRef = self.database.collection("books")
-                            bookRef.document(self.allBooks[indexPath.row].name).delete { error in
-                                if let error = error{
-                                    print(error)
-                                }
-                                else{
-                                    self.indicator.stopAnimating()
-                                    self.allBooks.remove(at: indexPath.row)
-                                    self.collectionView.reloadData()
-                                    print("Successfully Deleted")
-                                }
-                            }
-                            
-                        }
+                    if let error = error{
+                        print(error)
                     }
+                    else{
+                        let bookRef = self.database.collection("books")
+                        bookRef.document(self.allBooks[indexPath.row].name).delete { error in
+                            if let error = error{
+                                print(error)
+                            }
+                            else{
+                                self.indicator.stopAnimating()
+                                self.allBooks.remove(at: indexPath.row)
+                                self.collectionView.reloadData()
+                                print("Successfully Deleted")
+                            }
+                        }
+                        
+                    }
+                }
                 
             }
-               return UIMenu(title: "", children: [delete])
-           }
-
+            return UIMenu(title: "", children: [delete])
+        }
+        
     }
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -165,40 +156,11 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
         cell.nameLabel.text = allBooks[indexPath.row].name
         cell.authorLabel.text = allBooks[indexPath.row].author
         // Configure the cell
-    
+        
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
-    }
-    */
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "modifyBookSegue"
         {
@@ -207,6 +169,8 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
             if let selectedRow = self.collectionView.indexPathsForSelectedItems?.first
             {
                 destVC.currentBook = allBooks[selectedRow.row]
+                destVC.displayName = displayName
+                destVC.credentials = credentials
             }
         }
         if segue.identifier == "addBooksSegue"{
@@ -214,6 +178,15 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
             destVC.credentials = credentials
             destVC.displayName = displayName
         }
+        if segue.identifier == "searchBookSegue"{
+            let destVC = segue.destination as! SearchBooksProfessorTableViewController
+            destVC.uploadedBooks = allBooks
+            destVC.user = credentials
+        }
+        if segue.identifier == "downloadedBooksProfessor"{
+            let destVC = segue.destination as! ProfessorDownloadsViewController
+            destVC.user = credentials
+        }
     }
-
+    
 }

@@ -16,6 +16,7 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
         }
         return 0
     }
+    var allDownloadedBooks: [DownloadedBook] = []
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: "downloadCell", for: indexPath) as! DownloadsCollectionViewCell
@@ -47,23 +48,14 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
     }
     var downloadedBooks: [DownloadedBook]?
     @IBOutlet weak var myCollectionView: UICollectionView!
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         myCollectionView.delegate = self
         myCollectionView.dataSource = self
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
-            return
-        }
-        let context = appDelegate.persistentContainer.viewContext
-        do{
-        downloadedBooks = try context.fetch(DownloadedBook.fetchRequest())
-        }
-        catch{
-            print(error)
-        }
-        myCollectionView.reloadData()
+        updateMyData()
+        
+        
         // Do any additional setup after loading the view.
         
     }
@@ -71,7 +63,37 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
         
         viewDidLoad()
     }
-
+    func updateMyData()
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+            return
+        }
+        let context = appDelegate.persistentContainer.viewContext
+        
+        
+            do
+            {
+                downloadedBooks = []
+                allDownloadedBooks = try context.fetch(DownloadedBook.fetchRequest())
+                if allDownloadedBooks.count > 0{
+                    for book in allDownloadedBooks{
+                        if book.user == nil{
+                        
+                            downloadedBooks?.append(book)
+                            
+                        }
+                        else{
+                         
+                        }
+                    }
+                }
+            }
+            catch{
+                print(error)
+            }
+        
+        myCollectionView.reloadData()
+    }
     /*
     // MARK: - Navigation
 
