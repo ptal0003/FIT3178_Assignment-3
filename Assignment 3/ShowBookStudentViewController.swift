@@ -12,7 +12,9 @@ import PDFKit
 let NOTIFICATION_IDENTIFIER = "edu.monash.fit3178.Workshop10"
 let sectionInsets1 = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var downloadButton: UIButton!
+    @IBOutlet weak var editionLabel: UILabel!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return otherBooksByAuthor.count
     }
@@ -65,7 +67,7 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
                             content.categoryIdentifier = sceneDelegate.CATEGORY_IDENTIFIER
                             
                             sceneDelegate.selectedBook = book
-                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+                            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
                             
                             let request = UNNotificationRequest(identifier: NOTIFICATION_IDENTIFIER, content: content, trigger: trigger)
                             
@@ -125,6 +127,8 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
     }
     var coverImage: UIImage?
 
+
+    @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var informationView: UITextView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -140,7 +144,7 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             myCollectionView.delegate = self
             myCollectionView.dataSource = self
             imageView?.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
-        
+            navigationItem.title = currentBook.name
             imageView.layer.masksToBounds = true
             imageView.contentMode = .scaleToFill
             imageView.layer.borderWidth = 2
@@ -148,6 +152,9 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             nameLabel.text = currentBook.name
             informationView.text = currentBook.information
             authorLabel.text = currentBook.author
+            yearLabel.text = currentBook.year
+            editionLabel.text = currentBook.edition
+            publisherLabel.text = currentBook.publisher
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
                 return
             }

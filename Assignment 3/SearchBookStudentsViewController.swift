@@ -90,7 +90,7 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                 var allBooksCopy: [Book] = []
                 if let downloadedBooks = downloadedBooks{
                     for downloadedBook in downloadedBooks{
-                        let newBook = Book(bookName: downloadedBook.name!, information: downloadedBook.information!, url: downloadedBook.url!, author: downloadedBook.author!, coverURL: downloadedBook.coverURL!, coverImage: UIImage(data: downloadedBook.coverPage!)!)
+                        let newBook = Book(bookName: downloadedBook.name!, information: downloadedBook.information!, url: downloadedBook.url!, author: downloadedBook.author!, coverURL: downloadedBook.coverURL!, coverImage: UIImage(data: downloadedBook.coverPage!)!, year: downloadedBook.year ?? "", publisher: downloadedBook.publisher ?? "", edition: downloadedBook.edition ?? "")
                         allBooksCopy.append(newBook)
                     }
                 }
@@ -197,6 +197,9 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                     let author = data["author"] as? String ?? ""
                     let coverURL = data["coverURL"] as? String ?? ""
                     let myURL = URL(string: coverURL)
+                    let year = data["year"] as? String ?? ""
+                    let publisher = data["publisher"] as? String ?? ""
+                    let edition = data["edition"] as? String ?? ""
                     let downloadTask = URLSession.shared.dataTask(with: myURL!) { data, response, error in
                         if let error = error{
                             print(error)
@@ -204,7 +207,7 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                         }
                         if let data = data{
                             let image = UIImage(data: data)
-                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
+                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!, year: year, publisher: publisher, edition: edition)
                             self.allBooks.append(book)
                             DispatchQueue.main.async {
                                 self.myTableView.reloadData()

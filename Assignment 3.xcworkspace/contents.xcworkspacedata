@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment 3/Core Data/DownloadedBook+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:DownloadedBook+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Assignment 3.xcodeproj">
    </FileRef>
    <FileRef

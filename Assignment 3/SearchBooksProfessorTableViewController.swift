@@ -108,6 +108,9 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
                     let author = data["author"] as? String ?? ""
                     let coverURL = data["coverURL"] as? String ?? ""
                     let myURL = URL(string: coverURL)
+                    let year = data["year"] as? String ?? ""
+                    let publisher = data["publisher"] as? String ?? ""
+                    let edition = data["edition"] as? String ?? ""
                     let downloadTask = URLSession.shared.dataTask(with: myURL!) { data, response, error in
                         if let error = error{
                             print(error)
@@ -115,7 +118,7 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
                         }
                         if let data = data{
                             let image = UIImage(data: data)
-                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
+                            let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!,year: year, publisher: publisher, edition: edition)
                             self.allBooks.append(book)
                             DispatchQueue.main.async {
                                 self.myTableView.reloadData()
@@ -200,12 +203,14 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
         {
         cell.nameLabel.text = filteredBooks[indexPath.row].name
         cell.authorLabel.text = filteredBooks[indexPath.row].author
+        cell.yearLabel.text = filteredBooks[indexPath.row].year
+        
         cell.informationView.text = filteredBooks[indexPath.row].information
         cell.customImageView.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
         cell.customImageView.layer.masksToBounds = true
         cell.customImageView.contentMode = .scaleToFill
         cell.customImageView.layer.borderWidth = 2
-            cell.customImageView.image = filteredBooks[indexPath.row].coverImage
+        cell.customImageView.image = filteredBooks[indexPath.row].coverImage
             
         }
         

@@ -16,21 +16,38 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
         if nameTextField.text == ""
         {
             displayMessage("Error", "Name of the book cannot be left blank. Kindly enter a name and save again.")
-            print("Name not entered")
             return
         }
         if instructionTextView.text == "Click here to add a description" {
             displayMessage("Error", "Description of the book cannot be left blank. Kindly enter a description and save again.")
-            print("Description left empty")
             return
         }
-        if let name = nameTextField.text, let information = instructionTextView.text
+        if yearTextField.text == ""
         {
-            indicator.startAnimating()
-            addData(name, information)
+            displayMessage("Error", "Year of the book cannot be left blank. Kindly enter the year book was published in and save again.")
+            return
+        }
+        if publisherTextField.text == ""
+        {
+            displayMessage("Error", "Publisher of the book cannot be left blank. Kindly enter the publisher and save again.")
+            return
+        }
+        if editionTextField.text == ""
+        {
+            displayMessage("Error", "Edition of the book cannot be left blank. Kindly enter the edition and save again.")
+            return
+        }
+        if let name = nameTextField.text, let information = instructionTextView.text, let year = yearTextField.text, let publisher = publisherTextField.text, let edition = editionTextField.text
+        {
+            addData(name, information,year,publisher,edition)
         }
         
     }
+    @IBOutlet weak var yearTextField: UITextField!
+    
+    @IBOutlet weak var publisherTextField: UITextField!
+    
+    @IBOutlet weak var editionTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     var credentials: String?
     var displayName: String?
@@ -115,13 +132,15 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
             instructionTextView.text = currentBook.information
             navigationItem.title = currentBook.name
             imageView.image = currentBook.coverImage
-            
+            yearTextField.text = currentBook.year
+            publisherTextField.text = currentBook.publisher
+            editionTextField.text = currentBook.edition
             
         }
         // Do any additional setup after loading the view.
     }
     
-    func addData(_ bookName: String, _ bookInformation: String) {
+    func addData(_ bookName: String, _ bookInformation: String, _ year: String, _ publisher: String, _ edition: String) {
         let userRef = database.collection("myCollection")
         let bookRef = database.collection("books")
         
@@ -170,7 +189,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                                             else{
                                                 let downloadURL = url?.absoluteString
                                                 
-                                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName,"coverURL": coverURLFirebase?.absoluteString]
+                                                let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName,"coverURL": coverURLFirebase?.absoluteString,"year":year, "publisher": publisher, "edition": edition]
                                                 bookRef.document(currentBook.name).updateData(newBook)
                                                 userRef.document(credentials).collection("Books").document(currentBook.name).updateData(newBook)
                                                 let VC = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? MyBooksProfessorViewController
@@ -194,7 +213,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                 
             }
             else {
-                let newBook = ["Name": bookName, "Information": bookInformation, "URL": currentBook.url, "author": self.displayName, "coverURL": currentBook.coverURL]
+                let newBook = ["Name": bookName, "Information": bookInformation, "URL": currentBook.url, "author": self.displayName, "coverURL": currentBook.coverURL,"year":year, "publisher": publisher, "edition": edition]
                 bookRef.document(currentBook.name).delete()
                 
                 bookRef.document(newBook["Name"]!!).setData(newBook)
@@ -214,6 +233,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
             
             if let selectedURL = selectedURL
             {
+                indicator.startAnimating()
                 let tempDirPaths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
                 let tempDir = tempDirPaths[0]
                 let localURL = tempDir.appendingPathComponent(selectedURL.lastPathComponent)
@@ -247,7 +267,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                                     {
                                         self.indicator.stopAnimating()
                                         coverStorageRef.downloadURL { url, error in
-                                            let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName, "coverURL": url?.absoluteString]
+                                            let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName, "coverURL": url?.absoluteString,"year":year, "publisher": publisher, "edition": edition]
                                             self.database.collection("books").document(bookName).setData(newBook)
                                             userRef.document(credentials).collection("Books").document(bookName).setData(newBook)
                                             let VC = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? MyBooksProfessorViewController

@@ -78,13 +78,16 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                         let author = data["author"] as? String ?? ""
                         let coverURL = data["coverURL"] as? String ?? ""
                         let urlCover = URL(string: coverURL)
+                        let year = data["year"] as? String ?? ""
+                        let publisher = data["publisher"] as? String ?? ""
+                        let edition = data["edition"] as? String ?? ""
                         let downloadTask = URLSession.shared.dataTask(with: urlCover!) { data, response, error in
                             if let error = error{
                                 print(error)
                             }
                             else if let data = data{
                                 let image = UIImage(data: data)
-                                let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!)
+                                let book = Book(bookName: name, information: information, url: url,author: author, coverURL: coverURL, coverImage: image!, year: year, publisher: publisher, edition: edition)
                                 self.allBooks.append(book)
                                 DispatchQueue.main.async {
                                     self.collectionView.reloadData()

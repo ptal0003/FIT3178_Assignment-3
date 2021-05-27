@@ -8,11 +8,12 @@
         <attribute name="information" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="pdfData" optional="YES" attributeType="Binary"/>
+        <attribute name="publisher" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="user" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="DownloadedBook" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="DownloadedBook" positionX="-63" positionY="-18" width="128" height="194"/>
     </elements>
 </model>
