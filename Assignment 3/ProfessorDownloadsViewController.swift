@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfessorDownloadsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class ProfessorDownloadsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet weak var myCollectionView: UICollectionView!
     var allDownloads: [DownloadedBook] = []
     var user: String?
@@ -27,6 +27,19 @@ class ProfessorDownloadsViewController: UIViewController, UICollectionViewDelega
             cell.imageView.image = UIImage(data: downloadedBooks[indexPath.row].coverPage!)
             cell.yearLabel.text = downloadedBooks[indexPath.row].author
         return cell
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let delete = UIAction(title: "Delete from Library", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                
+                self.downloadedBooks[indexPath.row].managedObjectContext?.delete(self.downloadedBooks[indexPath.row])
+                self.downloadedBooks.remove(at: indexPath.row)
+                self.myCollectionView.reloadData()
+            }
+            return UIMenu(title: "", children: [delete])
+        }
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

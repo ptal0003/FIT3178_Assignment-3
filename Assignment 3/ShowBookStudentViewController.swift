@@ -9,16 +9,24 @@ import UIKit
 import CoreData
 import Firebase
 import PDFKit
-let NOTIFICATION_IDENTIFIER = "edu.monash.fit3178.Workshop10"
+let NOTIFICATION_IDENTIFIER = "edu.monash.fit3178.Assignment3"
 let sectionInsets1 = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    var otherBooksOfInterest: [Book] = []
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet weak var editionLabel: UILabel!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return otherBooksByAuthor.count
+        if section == 0{
+            return otherBooksByAuthor.count
+        }
+        else{
+            return otherBooksOfInterest.count
+        }
     }
-    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
     var user: String?
     @IBAction func downloadBook(_ sender: Any) {
         
@@ -30,8 +38,6 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
         }
         let context = appDelegate.persistentContainer.viewContext
         let storageRef =  Storage.storage().reference(forURL: currentBook!.url)
-        let coverRef = Storage.storage().reference(forURL: currentBook!.coverURL)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
             
         
@@ -107,16 +113,7 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
         cell.imageView.contentMode = .scaleToFill
         cell.imageView.layer.borderWidth = 2
         cell.imageView.image = otherBooksByAuthor[indexPath.row].coverImage
-        cell.nameLabel.text = otherBooksByAuthor[indexPath.row].name
         return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-            let availableWidth = view.frame.width - paddingSpace
-            let widthPerItem = availableWidth / itemsPerRow
-            
-            return CGSize(width: widthPerItem, height: 200)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -139,7 +136,7 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
     var currentBook: Book?
     override func viewDidLoad() {
         super.viewDidLoad()
-        myCollectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
+        
         if let currentBook = currentBook{
             myCollectionView.delegate = self
             myCollectionView.dataSource = self
@@ -165,7 +162,6 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             catch{
                 print(error)
             }
-            print(downloadedBooks?.count)
             if downloadedBooks?.count ?? 0 > 0{
             for counter in 0...(downloadedBooks?.count ?? 0) - 1 {
                 if let downloadedBooks = downloadedBooks{
@@ -205,9 +201,18 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
     }
     */
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as! HeaderCollectionReusableView
-        header.configure()
-        return header
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerReusableView", for: indexPath) as? HeaderCollectionReusableView{
+            if indexPath.section == 0 && otherBooksByAuthor.count > 0
+            {
+                sectionHeader.headerLabel.text = "More books by " + currentBook!.author ?? "Author"
+            }
+            if indexPath.section == 1 && otherBooksByAuthor.count > 0
+            {
+                sectionHeader.headerLabel.text = "Other books that might interest you"
+            }
+            return sectionHeader
+        }
+        return UICollectionReusableView()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showBookPDFSegue"

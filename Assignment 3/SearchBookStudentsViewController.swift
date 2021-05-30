@@ -179,8 +179,6 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
         indicator.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(indicator)
         NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
         // This view controller decides how the search controller is presented
         database.collection("books").getDocuments { querySnapshot, error in
             if let error = error{
@@ -261,8 +259,19 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                 
                 destVC.otherBooksByAuthor.remove(at: destVC.otherBooksByAuthor.firstIndex(of: destVC.currentBook!)!)
                 
+                destVC.otherBooksOfInterest = []
+                for counter in 0...allBooks.count-1
+                {
+                    if allBooks[counter].author != filteredBooks[selectedRow].author
+                    {
+                        destVC.otherBooksOfInterest.append(allBooks[counter])
+                       
+                    }
+                }
+                
                 
             }
+            
             
         }
         if segue.identifier == "showBookPDF"

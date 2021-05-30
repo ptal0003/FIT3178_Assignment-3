@@ -15,7 +15,7 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
            }
-        matchingSelections = (currentPDFDoc?.findString(searchText, withOptions: .caseInsensitive))!
+        matchingSelections = (currentPDFDoc?.findString(searchText, withOptions: .caseInsensitive))
         myTableView.reloadData()
         
     }
@@ -24,7 +24,7 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
     var matchingSelections: [PDFSelection]?
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search the Document"
@@ -64,7 +64,6 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
             if let matchingSelections = matchingSelections{
                 cell.textLabel!.text = "Page " + matchingSelections[indexPath.row].pages[0].label!
                 let matchContext = matchingSelections[indexPath.row].copy() as! PDFSelection
-                var myString: String
                 var counter = 0
                 while counter < 5 {
                     matchContext.extend(atStart: 1)
@@ -76,7 +75,6 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
                         }
                     }
                 }
-                var myString1: String
                 counter = 0
                 
                 while counter < 1 {

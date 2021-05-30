@@ -10,17 +10,14 @@ import CoreData
 import PDFKit
 class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let downloadedBooks = downloadedBooks
-        {
+        
             return downloadedBooks.count
-        }
-        return 0
+        
     }
     var allDownloadedBooks: [DownloadedBook] = []
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: "downloadCell", for: indexPath) as! DownloadsCollectionViewCell
-        if let downloadedBooks = downloadedBooks{
             cell.nameLabel.text = downloadedBooks[indexPath.row].name
             cell.imageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.7).cgColor
             cell.imageView.layer.masksToBounds = true
@@ -29,24 +26,30 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
             cell.imageView.image = UIImage(data: downloadedBooks[indexPath.row].coverPage!)
             cell.yearLabel.text = downloadedBooks[indexPath.row].author
         
-        }
         
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let delete = UIAction(title: "Delete from Library", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                self.downloadedBooks[indexPath.row].managedObjectContext?.delete(self.downloadedBooks[indexPath.row])
+                self.downloadedBooks.remove(at: indexPath.row)
+                    self.myCollectionView.reloadData()
+                    
+                }
+            return UIMenu(title: "", children: [delete])
+        }
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 165, height: 250)
         
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
-    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
                 self.performSegue(withIdentifier: "showBookSegue", sender: self)
     }
-    var downloadedBooks: [DownloadedBook]?
+    var downloadedBooks: [DownloadedBook] = []
     @IBOutlet weak var myCollectionView: UICollectionView!
   
     override func viewDidLoad() {
@@ -79,7 +82,7 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
                     for book in allDownloadedBooks{
                         if book.user == nil{
                         
-                            downloadedBooks?.append(book)
+                            downloadedBooks.append(book)
                             
                         }
                         else{
@@ -107,9 +110,8 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
         if segue.identifier == "searchBookSegue"
         {
             let destVC = segue.destination as! SearchBookStudentsViewController
-            if let downloadedBooks = downloadedBooks{
+            
                 destVC.downloadedBooks = downloadedBooks
-            }
       
         }
         if segue.identifier == "showBookSegue"
@@ -117,7 +119,7 @@ class DownloadsViewController: UIViewController, UICollectionViewDelegate, UICol
             let destVC = segue.destination as! showBookPDFViewController
             if let selectedRow = myCollectionView.indexPathsForSelectedItems?.first
             {
-                destVC.selectedBook = downloadedBooks![selectedRow.row]
+                destVC.selectedBook = downloadedBooks[selectedRow.row]
             }
             
         }

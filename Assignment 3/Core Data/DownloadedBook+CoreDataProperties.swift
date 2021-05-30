@@ -2,7 +2,7 @@
 //  DownloadedBook+CoreDataProperties.swift
 //  
 //
-//  Created by Jyoti Talukdar on 27/05/21.
+//  Created by Jyoti Talukdar on 31/05/21.
 //
 //
 
@@ -23,9 +23,27 @@ extension DownloadedBook {
     @NSManaged public var information: String?
     @NSManaged public var name: String?
     @NSManaged public var pdfData: Data?
+    @NSManaged public var publisher: String?
     @NSManaged public var url: String?
     @NSManaged public var user: String?
     @NSManaged public var year: String?
-    @NSManaged public var publisher: String?
+    @NSManaged public var bookmarks: NSSet?
+
+}
+
+// MARK: Generated accessors for bookmarks
+extension DownloadedBook {
+
+    @objc(addBookmarksObject:)
+    @NSManaged public func addToBookmarks(_ value: Bookmark)
+
+    @objc(removeBookmarksObject:)
+    @NSManaged public func removeFromBookmarks(_ value: Bookmark)
+
+    @objc(addBookmarks:)
+    @NSManaged public func addToBookmarks(_ values: NSSet)
+
+    @objc(removeBookmarks:)
+    @NSManaged public func removeFromBookmarks(_ values: NSSet)
 
 }

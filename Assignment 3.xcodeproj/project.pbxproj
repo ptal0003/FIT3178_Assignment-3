@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D025F19265C49B6005C3980 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D025F18265C49B6005C3980 /* HeaderCollectionReusableView.swift */; };
 		0D03E2AD263AAD8600ECB88E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */; };
 		0D07D722263585CB0010AB82 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07D721263585CB0010AB82 /* Book.swift */; };
 		0D07D72C263586C10010AB82 /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D07D72B263586C10010AB82 /* AddBookViewController.swift */; };
@@ -35,11 +34,13 @@
 		0D4CDA4F2656D1FA00942577 /* SearchWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4CDA4E2656D1FA00942577 /* SearchWordDelegate.swift */; };
 		0D58E1992656CAAC009283EE /* SearchWordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */; };
 		0D6384D1264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D6384CF264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld */; };
-		0D6F6702265F9F7A0024440C /* DownloadedBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6F6701265F9F7A0024440C /* DownloadedBook+CoreDataProperties.swift */; };
-		0D6F6704265F9F7D0024440C /* DownloadedBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6F6703265F9F7D0024440C /* DownloadedBook+CoreDataClass.swift */; };
 		0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */; };
 		0D7BDBBB264CEFCD00A08C39 /* SearchBookStudentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7BDBBA264CEFCD00A08C39 /* SearchBookStudentsViewController.swift */; };
 		0D8504E2265240F800A55838 /* ShowDownloadedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8504E1265240F800A55838 /* ShowDownloadedBookViewController.swift */; };
+		0DF421A72662678F0081C2CB /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF421A62662678F0081C2CB /* HeaderCollectionReusableView.swift */; };
+		0DF421AB266414460081C2CB /* Bookmark+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF421A8266414440081C2CB /* Bookmark+CoreDataProperties.swift */; };
+		0DF421AC266414460081C2CB /* DownloadedBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF421A9266414450081C2CB /* DownloadedBook+CoreDataProperties.swift */; };
+		0DF421AD266414460081C2CB /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF421AA266414460081C2CB /* Bookmark+CoreDataClass.swift */; };
 		44B05C4F679552CDB3396A0C /* Pods_Assignment_3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C86E81DFE4DF15C8CBA413F /* Pods_Assignment_3.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,7 +62,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D025F18265C49B6005C3980 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		0D03E2AC263AAD8600ECB88E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D07D721263585CB0010AB82 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		0D07D72B263586C10010AB82 /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
@@ -95,11 +95,13 @@
 		0D5748E926384BB400BA0200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Assignment 3/Info.plist"; sourceTree = "<group>"; };
 		0D58E1982656CAAC009283EE /* SearchWordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWordsTableViewController.swift; sourceTree = "<group>"; };
 		0D6384D0264FAB09008EE588 /* BookDownloadDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookDownloadDataModel.xcdatamodel; sourceTree = "<group>"; };
-		0D6F6701265F9F7A0024440C /* DownloadedBook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadedBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		0D6F6703265F9F7D0024440C /* DownloadedBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DownloadedBook+CoreDataClass.swift"; path = "/Users/jyotitalukdar/Desktop/FIT3178_Assignment-3/Assignment 3/Core Data/DownloadedBook+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookTableViewCell.swift; sourceTree = "<group>"; };
 		0D7BDBBA264CEFCD00A08C39 /* SearchBookStudentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBookStudentsViewController.swift; sourceTree = "<group>"; };
 		0D8504E1265240F800A55838 /* ShowDownloadedBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDownloadedBookViewController.swift; sourceTree = "<group>"; };
+		0DF421A62662678F0081C2CB /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		0DF421A8266414440081C2CB /* Bookmark+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0DF421A9266414450081C2CB /* DownloadedBook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DownloadedBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0DF421AA266414460081C2CB /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2C86E81DFE4DF15C8CBA413F /* Pods_Assignment_3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Assignment_3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E4174C9201F0BB00CE5E21E /* Pods-Assignment 3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment 3.release.xcconfig"; path = "Target Support Files/Pods-Assignment 3/Pods-Assignment 3.release.xcconfig"; sourceTree = "<group>"; };
 		C347FE6372B2612A9300787D /* Pods-Assignment 3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment 3.debug.xcconfig"; path = "Target Support Files/Pods-Assignment 3/Pods-Assignment 3.debug.xcconfig"; sourceTree = "<group>"; };
@@ -208,8 +210,8 @@
 				0D3548C5264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift */,
 				0D3548C1264DCC4600AA2613 /* BookCollectionViewCell.swift */,
 				0D424CD4264FDD6A00EA7531 /* DownloadBooksTableViewCell.swift */,
-				0D025F18265C49B6005C3980 /* HeaderCollectionReusableView.swift */,
 				0D7BDBB8264CEE7900A08C39 /* SearchBookTableViewCell.swift */,
+				0DF421A62662678F0081C2CB /* HeaderCollectionReusableView.swift */,
 				0D1518ED2650F260008B96C1 /* DownloadsCollectionViewCell.swift */,
 			);
 			path = "Cell Classes";
@@ -218,9 +220,10 @@
 		0D424CDB26501EEC00EA7531 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				0D6F6703265F9F7D0024440C /* DownloadedBook+CoreDataClass.swift */,
-				0D6F6701265F9F7A0024440C /* DownloadedBook+CoreDataProperties.swift */,
 				0D6384CF264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld */,
+				0DF421AA266414460081C2CB /* Bookmark+CoreDataClass.swift */,
+				0DF421A8266414440081C2CB /* Bookmark+CoreDataProperties.swift */,
+				0DF421A9266414450081C2CB /* DownloadedBook+CoreDataProperties.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -431,24 +434,25 @@
 				0D3548BD264D890700AA2613 /* ShowBookStudentViewController.swift in Sources */,
 				0D3548C2264DCC4600AA2613 /* BookCollectionViewCell.swift in Sources */,
 				0D424CD92650179A00EA7531 /* ShowSelectedBookViewController.swift in Sources */,
+				0DF421AD266414460081C2CB /* Bookmark+CoreDataClass.swift in Sources */,
 				0D8504E2265240F800A55838 /* ShowDownloadedBookViewController.swift in Sources */,
 				0D3816462658F596004C19E7 /* SearchBooksProfessorTableViewController.swift in Sources */,
 				0D2F83FD2652B3C900171970 /* showBookPDFViewController.swift in Sources */,
-				0D6F6704265F9F7D0024440C /* DownloadedBook+CoreDataClass.swift in Sources */,
 				0D424CD7264FE1C400EA7531 /* StudentDownloadsViewController.swift in Sources */,
 				0D07D722263585CB0010AB82 /* Book.swift in Sources */,
 				0D424CD5264FDD6A00EA7531 /* DownloadBooksTableViewCell.swift in Sources */,
+				0DF421AC266414460081C2CB /* DownloadedBook+CoreDataProperties.swift in Sources */,
+				0DF421AB266414460081C2CB /* Bookmark+CoreDataProperties.swift in Sources */,
 				0D07D72C263586C10010AB82 /* AddBookViewController.swift in Sources */,
 				0D2F83FF2653AAC100171970 /* GoogleBooks.swift in Sources */,
 				0D6384D1264FAB09008EE588 /* BookDownloadDataModel.xcdatamodeld in Sources */,
 				0D0FC2D326356941002BECC3 /* AppDelegate.swift in Sources */,
 				0D3548C6264E6CFF00AA2613 /* OtherBooksCollectionViewCell.swift in Sources */,
 				0D4CDA4F2656D1FA00942577 /* SearchWordDelegate.swift in Sources */,
-				0D025F19265C49B6005C3980 /* HeaderCollectionReusableView.swift in Sources */,
 				0D1518F02650F5D5008B96C1 /* DownloadsViewController.swift in Sources */,
+				0DF421A72662678F0081C2CB /* HeaderCollectionReusableView.swift in Sources */,
 				0D58E1992656CAAC009283EE /* SearchWordsTableViewController.swift in Sources */,
 				0D0FC2D526356941002BECC3 /* SceneDelegate.swift in Sources */,
-				0D6F6702265F9F7A0024440C /* DownloadedBook+CoreDataProperties.swift in Sources */,
 				0D3548C4264DCE2100AA2613 /* MyBooksProfessorViewController.swift in Sources */,
 				0D7BDBB9264CEE7900A08C39 /* SearchBookTableViewCell.swift in Sources */,
 				0D38164E2659371E004C19E7 /* ProfessorDownloadsViewController.swift in Sources */,

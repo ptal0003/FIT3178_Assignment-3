@@ -14,9 +14,11 @@ class showBookPDFViewController: UIViewController, SearchWordDelegate{
             pdfView.currentSelection?.color = UIColor.red
             pdfView.scrollSelectionToVisible(self)
             
+            
         }
     }
     
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
     let searchController = UISearchController(searchResultsController: nil)
     var selectedBook: DownloadedBook?
     var searchResult: [PDFSelection] = []
@@ -24,7 +26,14 @@ class showBookPDFViewController: UIViewController, SearchWordDelegate{
     var pdfDoc: PDFDocument?
     
     override func viewDidLoad() {
-        
+        let searchAction = UIAction(title: "Search", image: UIImage(systemName: "magnifyingglass")) { action in
+            self.performSegue(withIdentifier: "searchInsideBookSegue", sender: self)
+        }
+        let viewBookMarksAction = UIAction(title: "Bookmarks", image: UIImage(systemName: "book")) { action in
+            self.performSegue(withIdentifier: "viewBookmarkSegue", sender: self)
+        }
+        barButtonItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: .destructive, children: [searchAction,viewBookMarksAction])
+
         super.viewDidLoad()
         navigationItem.title = selectedBook?.name
         pdfView = PDFView()
@@ -38,7 +47,7 @@ class showBookPDFViewController: UIViewController, SearchWordDelegate{
         pdfView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         pdfView.autoScales = true
         if let selectedBook = selectedBook{
-            var myDoc = PDFDocument(data: selectedBook.pdfData!)
+            let myDoc = PDFDocument(data: selectedBook.pdfData!)
             pdfView.document = myDoc
             pdfDoc = myDoc
             
@@ -48,21 +57,10 @@ class showBookPDFViewController: UIViewController, SearchWordDelegate{
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func findME(_ sender: UIBarButtonItem) {
-        if let selectedBook = selectedBook{
-            var myDoc = PDFDocument(data: selectedBook.pdfData!)
-            if let pdfView = pdfView{
-            pdfView.document = myDoc
-            searchResult = (myDoc?.findString("book", withOptions: .regularExpression))!
-            
-            pdfView.setCurrentSelection(searchResult[0], animate: true)
-            pdfView.currentSelection?.color = UIColor.red
-            pdfView.scrollSelectionToVisible(self)
-            }
-        }
-    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchInsideBookSegue"{
+            
             let destVC = segue.destination as! SearchWordsTableViewController
             destVC.currentPDFDoc = pdfDoc
             destVC.delegate = self

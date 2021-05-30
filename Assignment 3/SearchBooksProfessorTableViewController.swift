@@ -90,8 +90,6 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
         NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor), indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
         
         
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
         // This view controller decides how the search controller is presented
         database.collection("books").getDocuments { querySnapshot, error in
             if let error = error{

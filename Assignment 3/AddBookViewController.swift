@@ -125,8 +125,6 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
         imageView.contentMode = .scaleToFill
         imageView.layer.borderWidth = 2
         navigationItem.title = "Add a Book"
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
         if let currentBook = currentBook {
             nameTextField.text = currentBook.name
             instructionTextView.text = currentBook.information
@@ -190,8 +188,8 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                                                 let downloadURL = url?.absoluteString
                                                 
                                                 let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName,"coverURL": coverURLFirebase?.absoluteString,"year":year, "publisher": publisher, "edition": edition]
-                                                bookRef.document(currentBook.name).updateData(newBook)
-                                                userRef.document(credentials).collection("Books").document(currentBook.name).updateData(newBook)
+                                                bookRef.document(currentBook.name).updateData(newBook as [AnyHashable : Any])
+                                                userRef.document(credentials).collection("Books").document(currentBook.name).updateData(newBook as [AnyHashable : Any])
                                                 let VC = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? MyBooksProfessorViewController
                                                 VC?.updateData()
                                                 
@@ -216,9 +214,9 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                 let newBook = ["Name": bookName, "Information": bookInformation, "URL": currentBook.url, "author": self.displayName, "coverURL": currentBook.coverURL,"year":year, "publisher": publisher, "edition": edition]
                 bookRef.document(currentBook.name).delete()
                 
-                bookRef.document(newBook["Name"]!!).setData(newBook)
+                bookRef.document(newBook["Name"]!!).setData(newBook as [String : Any])
                 userRef.document(credentials).collection("Books").document(currentBook.name).delete()
-                userRef.document(credentials).collection("Books").document(newBook["Name"]!!).setData(newBook)
+                userRef.document(credentials).collection("Books").document(newBook["Name"]!!).setData(newBook as [String : Any])
                 
                 indicator.stopAnimating()
                 let VC = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? MyBooksProfessorViewController
@@ -238,11 +236,12 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                 let tempDir = tempDirPaths[0]
                 let localURL = tempDir.appendingPathComponent(selectedURL.lastPathComponent)
                 
-                selectedURL.startAccessingSecurityScopedResource()
-                try? FileManager.default.copyItem(at: selectedURL, to: localURL)
+                if selectedURL.startAccessingSecurityScopedResource()
+                {
+                    try? FileManager.default.copyItem(at: selectedURL, to: localURL)
+                }
                 self.selectedURL?.stopAccessingSecurityScopedResource()
                 let storageRef = storage.reference(withPath: "/books/\(selectedURL.lastPathComponent)")
-                let fileRef = storageRef.child(selectedURL.lastPathComponent)
                 let coverStorageRef = storage.reference(withPath: "/cover/\(bookName)Cover")
                 storageRef.putFile(from: localURL, metadata: nil) { metadata, error in
                     if let error = error{
@@ -268,9 +267,9 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
                                         self.indicator.stopAnimating()
                                         coverStorageRef.downloadURL { url, error in
                                             let newBook = ["Name": bookName, "Information": bookInformation, "URL": downloadURL, "author": self.displayName, "coverURL": url?.absoluteString,"year":year, "publisher": publisher, "edition": edition]
-                                            self.database.collection("books").document(bookName).setData(newBook)
-                                            userRef.document(credentials).collection("Books").document(bookName).setData(newBook)
-                                            let VC = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? MyBooksProfessorViewController
+                                            self.database.collection("books").document(bookName).setData(newBook as [String : Any])
+                                            userRef.document(credentials).collection("Books").document(bookName).setData(newBook as [String : Any])
+                                            let VC = self.navigationController!.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as? MyBooksProfessorViewController
                                             VC?.updateData()
                                             self.displaySuccessMessage("Success", "Your book has been uploaded succesfully, you can find it with the other uploaded books.")
                                             

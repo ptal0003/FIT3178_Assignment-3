@@ -7,8 +7,6 @@
 
 import UIKit
 import Firebase
-let itemsPerRow: CGFloat = 2
-let sectionInsets = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
 
 class MyBooksProfessorViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
@@ -48,7 +46,6 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
         NSLayoutConstraint.activate([indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
         collectionView.dataSource = self
         collectionView.delegate = self
-        let storageRef = Storage.storage().reference()
         updateData()
         
         // Uncomment the following line to preserve selection between presentations
@@ -151,11 +148,11 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookViewCell", for: indexPath) as! BookCollectionViewCell
-        cell.imageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.7).cgColor
-        cell.imageView.layer.masksToBounds = true
-        cell.imageView.contentMode = .scaleToFill
-        cell.imageView.layer.borderWidth = 2
-        cell.imageView.image = allBooks[indexPath.row].coverImage
+        cell.customImageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.7).cgColor
+        cell.customImageView.layer.masksToBounds = true
+        cell.customImageView.contentMode = .scaleToFill
+        cell.customImageView.layer.borderWidth = 2
+        cell.customImageView.image = allBooks[indexPath.row].coverImage
         cell.nameLabel.text = allBooks[indexPath.row].name
         cell.authorLabel.text = allBooks[indexPath.row].author
         // Configure the cell
