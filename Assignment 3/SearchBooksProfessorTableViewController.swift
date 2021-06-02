@@ -26,6 +26,9 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
         if searchText.count > 0 {
             filteredBooks = allBooks.filter({(book: Book) -> Bool in return (book.name.lowercased().contains(searchText)) || (book.information.lowercased().contains(searchText)) ||
                 (book.author.lowercased().contains(searchText))
+                || (book.year!.lowercased().contains(searchText))
+                || (book.publisher!.lowercased().contains(searchText))
+                
             })
             myTableView.reloadData()
         }
@@ -204,7 +207,7 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
         cell.yearLabel.text = filteredBooks[indexPath.row].year
         
         cell.informationView.text = filteredBooks[indexPath.row].information
-        cell.customImageView.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
+            cell.customImageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.8).cgColor
         cell.customImageView.layer.masksToBounds = true
         cell.customImageView.contentMode = .scaleToFill
         cell.customImageView.layer.borderWidth = 2
@@ -235,6 +238,9 @@ class SearchBooksProfessorTableViewController: UITableViewController, UISearchRe
                     {
                         destVC.otherBooksByAuthor.append(allBooks[counter])
                        
+                    }
+                    else {
+                        destVC.otherBooksOfInterest.append(allBooks[counter])
                     }
                 }
                 

@@ -10,7 +10,7 @@ import Firebase
 import FirebaseFirestore
 import UniformTypeIdentifiers
 import PDFKit
-class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
+class AddBookViewController: UIViewController, UIDocumentPickerDelegate, UITextViewDelegate {
     @IBAction func saveBook(_ sender: Any) {
         
         if nameTextField.text == ""
@@ -18,7 +18,7 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
             displayMessage("Error", "Name of the book cannot be left blank. Kindly enter a name and save again.")
             return
         }
-        if instructionTextView.text == "Click here to add a description" {
+        if instructionTextView.text.isEmpty || instructionTextView.textColor == UIColor.lightGray {
             displayMessage("Error", "Description of the book cannot be left blank. Kindly enter a description and save again.")
             return
         }
@@ -57,7 +57,24 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameTextView: UITextView!
     @IBOutlet weak var instructionTextView: UITextView!
-    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if instructionTextView.text.isEmpty {
+            instructionTextView.text = "Description:"
+                instructionTextView.textColor = UIColor.lightGray
+            }
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if instructionTextView.textColor == UIColor.lightGray {
+                instructionTextView.text = nil
+            if self.traitCollection.userInterfaceStyle == .light{
+                instructionTextView.textColor = UIColor.black
+                
+            }
+            else{
+                instructionTextView.textColor = UIColor.white
+            }
+        }
+    }
     public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         selectedURL = urls.first
         if let selectedURL = urls.first{
@@ -112,9 +129,11 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
         return Firestore.firestore()
     }()
     var indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
+        instructionTextView.delegate = self
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(indicator)
@@ -125,8 +144,18 @@ class AddBookViewController: UIViewController, UIDocumentPickerDelegate {
         imageView.contentMode = .scaleToFill
         imageView.layer.borderWidth = 2
         navigationItem.title = "Add a Book"
+        instructionTextView.text = "Description:"
+        instructionTextView.textColor = UIColor.lightGray
         if let currentBook = currentBook {
+            
             nameTextField.text = currentBook.name
+            if self.traitCollection.userInterfaceStyle == .light{
+                instructionTextView.textColor = UIColor.black
+                
+            }
+            else{
+                instructionTextView.textColor = UIColor.white
+            }
             instructionTextView.text = currentBook.information
             navigationItem.title = currentBook.name
             imageView.image = currentBook.coverImage

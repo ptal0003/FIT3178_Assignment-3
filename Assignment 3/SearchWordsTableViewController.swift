@@ -10,7 +10,7 @@ import PDFKit
 class SearchWordsTableViewController: UITableViewController, UISearchResultsUpdating {
    
     @IBOutlet var myTableView: UITableView!
-    var delegate: SearchWordDelegate?
+    var delegate: PDFFunctionalityDelegate?
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
@@ -31,13 +31,14 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
         navigationItem.searchController = searchController
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
-        // Uncomment the following line to preserve selection between presentations
+        
+                // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,29 +65,8 @@ class SearchWordsTableViewController: UITableViewController, UISearchResultsUpda
             if let matchingSelections = matchingSelections{
                 cell.textLabel!.text = "Page " + matchingSelections[indexPath.row].pages[0].label!
                 let matchContext = matchingSelections[indexPath.row].copy() as! PDFSelection
-                var counter = 0
-                while counter < 5 {
-                    matchContext.extend(atStart: 1)
-                    if let myString = matchContext.string{
-                        
-                        if myString.first == " "
-                        {
-                           counter = counter + 1
-                        }
-                    }
-                }
-                counter = 0
+                matchContext.extendForLineBoundaries()
                 
-                while counter < 1 {
-                    matchContext.extend(atEnd: 1)
-                    if let myString = matchContext.string{
-                        
-                        if myString.last == "!" || myString.last == "."
-                        {
-                           counter = counter + 1
-                        }
-                    }
-                }
                 cell.detailTextLabel?.text = matchContext.string
             }
         }

@@ -17,7 +17,7 @@ extension Bookmark {
     }
 
     @NSManaged public var name: String?
-    @NSManaged public var page: Int64
+    @NSManaged public var page: Int32
     @NSManaged public var book: DownloadedBook?
 
 }

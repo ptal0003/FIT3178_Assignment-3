@@ -7,6 +7,7 @@
 
 import Foundation
 import PDFKit
-protocol SearchWordDelegate {
+protocol PDFFunctionalityDelegate {
     func sendPDFSelect(_ pdfSelection: PDFSelection)
+    func sendPDFPage(_ pdfPage: Int)
 }

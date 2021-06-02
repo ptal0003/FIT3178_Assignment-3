@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//Used to show custom cells in ShowBookStudentViewController
 class OtherBooksCollectionViewCell: UICollectionViewCell {
     
    

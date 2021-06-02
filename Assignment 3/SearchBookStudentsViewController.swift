@@ -151,8 +151,9 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
         
         cell.nameLabel.text = filteredBooks[indexPath.row].name
         cell.authorLabel.text = filteredBooks[indexPath.row].author
+        cell.yearLabel.text = filteredBooks[indexPath.row].year
         cell.informationView.text = filteredBooks[indexPath.row].information
-        cell.customImageView.layer.borderColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0).cgColor
+        cell.customImageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.7).cgColor
         cell.customImageView.layer.masksToBounds = true
         cell.customImageView.contentMode = .scaleToFill
         cell.customImageView.layer.borderWidth = 2
@@ -240,7 +241,6 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "alpha"
         {
-            
             let destVC = segue.destination as! ShowBookStudentViewController
             if let selectedRow = myTableView.indexPathForSelectedRow?.row
             {
@@ -253,8 +253,8 @@ class SearchBookStudentsViewController: UIViewController, UITableViewDelegate, U
                     if allBooks[counter].author == filteredBooks[selectedRow].author
                     {
                         destVC.otherBooksByAuthor.append(allBooks[counter])
-                       
                     }
+                    
                 }
                 
                 destVC.otherBooksByAuthor.remove(at: destVC.otherBooksByAuthor.firstIndex(of: destVC.currentBook!)!)

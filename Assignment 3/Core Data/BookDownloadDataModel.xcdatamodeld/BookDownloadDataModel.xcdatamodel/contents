@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bookmark" representedClassName="Bookmark" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="page" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DownloadedBook" inverseName="bookmarks" inverseEntity="DownloadedBook"/>
     </entity>
     <entity name="DownloadedBook" representedClassName="DownloadedBook" syncable="YES" codeGenerationType="class">
@@ -20,7 +20,7 @@
         <relationship name="bookmarks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bookmark" inverseName="book" inverseEntity="Bookmark"/>
     </entity>
     <elements>
-        <element name="DownloadedBook" positionX="-63" positionY="-18" width="128" height="209"/>
         <element name="Bookmark" positionX="-63" positionY="63" width="128" height="74"/>
+        <element name="DownloadedBook" positionX="-63" positionY="-18" width="128" height="209"/>
     </elements>
 </model>

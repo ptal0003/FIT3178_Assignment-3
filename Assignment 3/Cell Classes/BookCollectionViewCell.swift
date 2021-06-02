@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//Used to show all books on Saved Books, uploaded books
 class BookCollectionViewCell: UICollectionViewCell {
 
     

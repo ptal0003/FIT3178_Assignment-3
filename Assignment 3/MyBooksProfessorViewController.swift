@@ -7,8 +7,8 @@
 
 import UIKit
 import Firebase
-
-class MyBooksProfessorViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+//Used
+class MyBooksProfessorViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     var displayName: String?
     var credentials: String?
@@ -16,6 +16,7 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
     var database = {
         return Firestore.firestore()
     }()
+    
     func displayMessage(_ title: String,_ message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { (_) in
@@ -26,6 +27,7 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
                 })
     }
     var allBooks: [Book] = []
+    
     var indicator =  UIActivityIndicatorView()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,6 +137,7 @@ class MyBooksProfessorViewController: UICollectionViewController, UICollectionVi
         }
         
     }
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

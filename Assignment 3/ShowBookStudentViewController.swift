@@ -12,12 +12,14 @@ import PDFKit
 let NOTIFICATION_IDENTIFIER = "edu.monash.fit3178.Assignment3"
 let sectionInsets1 = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var viewPDFButton: UIButton!
     var otherBooksOfInterest: [Book] = []
+    var sectionTwoSelected = false
     @IBOutlet weak var publisherLabel: UILabel!
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet weak var editionLabel: UILabel!
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0{
+        if section == 0 && otherBooksByAuthor.count > 0{
             return otherBooksByAuthor.count
         }
         else{
@@ -25,7 +27,21 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        if otherBooksByAuthor.count > 0 && otherBooksOfInterest.count > 0{
+            return 2
+        }
+        else if otherBooksByAuthor.count > 0 && otherBooksOfInterest.count == 0
+        {
+            return 1
+        }
+        else if otherBooksByAuthor.count == 0 && otherBooksOfInterest.count > 0
+        {
+            return 1
+        }
+        else{
+            return 0
+        }
+        
     }
     var user: String?
     @IBAction func downloadBook(_ sender: Any) {
@@ -105,6 +121,42 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
     
         
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 && otherBooksByAuthor.count > 0{
+                currentBook = otherBooksByAuthor[indexPath.row]
+        }
+        else{
+            currentBook = otherBooksOfInterest[indexPath.row]
+        }
+            otherBooksOfInterest = []
+            otherBooksByAuthor = []
+            for counter in 0...allBooks.count-1
+            {
+                if allBooks[counter].author == currentBook!.author
+                {
+                    otherBooksByAuthor.append(allBooks[counter])
+                }
+                else{
+                    otherBooksOfInterest.append(allBooks[counter])
+                }
+            }
+        checkIfDownloaded(book: currentBook!)
+            let oldBookIndex = otherBooksByAuthor.firstIndex(of: otherBooksByAuthor[indexPath.row])!
+            
+            otherBooksByAuthor.remove(at: oldBookIndex)
+        if let currentBook = currentBook{
+            nameLabel.text = currentBook.name
+            informationView.text = currentBook.information
+            authorLabel.text = currentBook.author
+            yearLabel.text = currentBook.year
+            editionLabel.text = currentBook.edition
+            publisherLabel.text = currentBook.publisher
+            imageView.image = currentBook.coverImage
+        }
+            myCollectionView.reloadData()
+        
+        
+    }
     @IBOutlet weak var myCollectionView: UICollectionView!
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "otherBooksCell", for: indexPath) as! OtherBooksCollectionViewCell
@@ -112,7 +164,14 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
         cell.imageView.layer.masksToBounds = true
         cell.imageView.contentMode = .scaleToFill
         cell.imageView.layer.borderWidth = 2
-        cell.imageView.image = otherBooksByAuthor[indexPath.row].coverImage
+        if indexPath.section == 0 && otherBooksByAuthor.count > 0{
+            cell.imageView.image = otherBooksByAuthor[indexPath.row].coverImage
+            cell.nameLabel.text = otherBooksByAuthor[indexPath.row].name
+        }
+        else {
+            cell.imageView.image = otherBooksOfInterest[indexPath.row].coverImage
+            cell.nameLabel.text = otherBooksOfInterest[indexPath.row].name
+        }
         return cell
     }
     
@@ -162,34 +221,38 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             catch{
                 print(error)
             }
-            if downloadedBooks?.count ?? 0 > 0{
-            for counter in 0...(downloadedBooks?.count ?? 0) - 1 {
-                if let downloadedBooks = downloadedBooks{
-                    if let user = user
-                    {
-                        if downloadedBooks[counter].coverURL == currentBook.coverURL && downloadedBooks[counter].user == user
-                            {
-                            downloadButton.isHidden = true
-                            }
-                    }
-                    else{
-                        if downloadedBooks[counter].coverURL == currentBook.coverURL && downloadedBooks[counter].user == nil
-                            {
-                                downloadButton.isHidden = true
-                            }
-                    }
-                    
-                }
-
-            }
-                
-            }
             
+            checkIfDownloaded(book: currentBook)
             myCollectionView.reloadData()
         }
         // Do any additional setup after loading the view.
     }
-    
+    func checkIfDownloaded(book: Book){
+        downloadButton.isHidden = false
+        if downloadedBooks?.count ?? 0 > 0{
+        for counter in 0...(downloadedBooks?.count ?? 0) - 1 {
+            if let downloadedBooks = downloadedBooks{
+                if let user = user
+                {
+                    if downloadedBooks[counter].coverURL == book.coverURL && downloadedBooks[counter].user == user
+                        {
+                        downloadButton.isHidden = true
+                        
+                        }
+                }
+                else{
+                    if downloadedBooks[counter].coverURL == book.coverURL && downloadedBooks[counter].user == nil
+                        {
+                            downloadButton.isHidden = true
+                        }
+                }
+                
+            }
+
+        }
+            
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -205,8 +268,9 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             if indexPath.section == 0 && otherBooksByAuthor.count > 0
             {
                 sectionHeader.headerLabel.text = "More books by " + currentBook!.author ?? "Author"
+                
             }
-            if indexPath.section == 1 && otherBooksByAuthor.count > 0
+            else
             {
                 sectionHeader.headerLabel.text = "Other books that might interest you"
             }
@@ -220,28 +284,6 @@ class ShowBookStudentViewController: UIViewController, UICollectionViewDelegate,
             let destVC = segue.destination as! ShowSelectedBookViewController
             destVC.currentBook = currentBook
         }
-        if segue.identifier == "showUpdatedBookSegue"
-        {
-            let destVC = segue.destination as! ShowBookStudentViewController
-            destVC.allBooks = allBooks
-            destVC.otherBooksByAuthor = []
-            if let selectedRow = myCollectionView.indexPathsForSelectedItems?.first
-            {
-                destVC.currentBook = otherBooksByAuthor[selectedRow.row]
-                for counter in 0...allBooks.count-1
-                {
-                    if allBooks[counter].author == otherBooksByAuthor[selectedRow.row].author
-                    {
-                        destVC.otherBooksByAuthor.append(allBooks[counter])
-                    }
-                }
-            
-                let oldBookIndex = destVC.otherBooksByAuthor.firstIndex(of: otherBooksByAuthor[selectedRow.row])!
-                
-                destVC.otherBooksByAuthor.remove(at: oldBookIndex)
-            
-                
-            }
-        }
+        
     }
 }
